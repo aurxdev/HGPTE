@@ -15,17 +15,17 @@ public class Inventory{
 
     //scriptable object
 
-    public void Add(CollectableType type){
+    public void Add(Collectable item){
         foreach(Slot slot in slots){
-            if (slot.type == type && slot.CanAddItem()){
-                slot.AddItem(type);
+            if (slot.type == item.type && slot.CanAddItem()){
+                slot.AddItem(item);
                 return;
             }
         }
 
         foreach(Slot slot in slots){
             if (slot.type == CollectableType.None){
-                slot.AddItem(type);
+                slot.AddItem(item);
                 return;
             }
         }

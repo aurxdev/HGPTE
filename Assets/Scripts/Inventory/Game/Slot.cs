@@ -8,6 +8,8 @@ public class Slot{
     public int count; // Number of items in the slot
     public int maxItems; // Maximum number of items in the slot
 
+    public Sprite icon; 
+
     public Slot(){
         type = CollectableType.None;
         count = 0;
@@ -18,8 +20,9 @@ public class Slot{
         return count < maxItems;
     }
 
-    public void AddItem(CollectableType type){
-        this.type = type;
+    public void AddItem(Collectable item){
+        this.type = item.type;
+        this.icon = item.icon;
         count++;
     }
 }
