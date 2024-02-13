@@ -27,13 +27,7 @@ namespace Movement
         [SerializeField]
         private SpriteRenderer spriteRenderer; // SpriteRenderer component for controlling the sprite of the player character
 
-        private bool isMoving; // Current speed of the player character
-
-        private bool hasToStop; // Flag indicating if the player character has to stop its movement
-
         private float speed;
-
-
 
         private float horizontal; // Horizontal input value
         private float vertical; // Vertical input value
@@ -54,8 +48,6 @@ namespace Movement
             lastDirection = 'S';
             speed = walkSpeed;
             isOnAnimation = false;
-            isMoving = false;
-            hasToStop = false;
         }
 
 
@@ -68,7 +60,6 @@ namespace Movement
             if (direction != Vector3.zero && direction.magnitude > 0)
             {
                 animator.SetBool("isMoving", true);
-                isMoving = true;
                 animator.SetFloat("vertical", direction.y);
                 animator.SetFloat("horizontal", direction.x);
             }
@@ -91,26 +82,6 @@ namespace Movement
 
 
 
-        private void stopMoving() {
-            if (isMoving) {
-                switch (spriteRenderer.sprite.name)
-                {
-                    case "character_0":
-                    case "character_8":
-                    case "character_19":
-                    case "character_27":
-                        animator.SetBool("isMoving", false);
-                        isMoving = false;
-                        hasToStop = false;
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-        }
-
-
 
 
         // Manages the movement of the player character
@@ -128,7 +99,6 @@ namespace Movement
             }
             if (isStopping(h, v))
             {
-                hasToStop = true;
                 return;
             }
 
@@ -158,8 +128,6 @@ namespace Movement
         {
             float elapsedTime = 0f;
             animator.SetBool("isMoving", true);
-            isMoving = true;
-
             while (elapsedTime < dashDuration)
             {
                 transform.position += dashDirection * (dashDistance / dashDuration) * Time.deltaTime;
@@ -168,7 +136,7 @@ namespace Movement
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
-            hasToStop = true;
+            animator.SetBool("isMoving", false);
             isOnAnimation = false;
         }
 
@@ -205,11 +173,6 @@ namespace Movement
 
         void Update()
         {
-            if (hasToStop)
-            {
-                stopMoving();
-            }
-
             if (!isOnAnimation)
             {
                 if (Input.GetKeyDown(KeyCode.LeftShift) && speed != sprintSpeed)
