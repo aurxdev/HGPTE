@@ -35,6 +35,8 @@ namespace Movement
         private char lastDirection; // Last movement direction of the player character
         private bool isOnAnimation; // Flag indicating if the player character is currently in an animation
 
+        private bool hasToDash;
+
 
 
 
@@ -48,6 +50,7 @@ namespace Movement
             lastDirection = 'S';
             speed = walkSpeed;
             isOnAnimation = false;
+            hasToDash = false;
         }
 
 
@@ -187,7 +190,7 @@ namespace Movement
 
                 if (Input.GetKeyDown(KeyCode.LeftControl))
                 {
-                    DashManager();
+                    hasToDash = true;
                 }
             }
         }
@@ -198,6 +201,11 @@ namespace Movement
         // Update is called once per frame
         void FixedUpdate()
         {
+            if (hasToDash)
+            {
+                DashManager();
+                hasToDash = false;
+            }
             if (!isOnAnimation)
             {
                 MovementManager();
