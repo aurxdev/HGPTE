@@ -99,6 +99,7 @@ namespace Movement
             }
             if (isStopping(h, v))
             {
+                animator.SetBool("isMoving", false);
                 return;
             }
 
