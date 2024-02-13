@@ -13,6 +13,8 @@ public class Inventory{
         }
     }
 
+    //scriptable object
+
     public void Add(CollectableType type){
         foreach(Slot slot in slots){
             if (slot.type == type && slot.CanAddItem()){
