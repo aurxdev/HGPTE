@@ -1,0 +1,209 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+/// <summary>
+/// Controls the movement of the player character.
+/// </summary>
+namespace Movement 
+{
+    public class Movement : MonoBehaviour
+    {
+        [SerializeField]
+        private  Animator animator; // Animator component for controlling animations
+
+        [SerializeField]
+        private Rigidbody2D rigidbody2D;
+
+        private WalkManager walkManager;
+
+        private DashManager dashManager;
+
+        private bool isOnAnimation;
+
+        private char lastDirection;
+
+        public void SetIsOnAnimation(bool value) {
+            isOnAnimation = value;
+            lastDirection = 'S';
+        }
+
+        public void SetLastDirection(char c){
+            lastDirection = c;
+        }
+
+        public char GetLastDirection() {
+            return lastDirection;
+        }
+
+
+
+        void Awake()
+        {
+            walkManager = new WalkManager();
+            dashManager = new DashManager();
+            isOnAnimation = false;
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift)) {
+                walkManager.ChangeRunState();
+            }
+            if (Input.GetKeyDown(KeyCode.LeftControl)) {
+                dashManager.HasToDash();
+            }
+        }
+
+        void FixedUpdate()
+        {
+            if (!isOnAnimation) {
+                if (dashManager.GetHasToDash()) {
+                    StartCoroutine(dashManager.Dash(this, rigidbody2D));
+                } else {
+                    walkManager.Walk(animator, rigidbody2D, this);
+                }
+            }
+        }
+    }
+
+
+    
+    class WalkManager
+    {
+        private float walkSpeed;
+
+        private float runSpeed;
+
+        private bool isRunning;
+
+
+        public WalkManager()
+        {
+            walkSpeed = 2;
+            runSpeed = 5;
+            isRunning = false;
+        }
+
+
+        
+        // Animates the movement of the player character based on the given direction
+        private void AnimateMovement(Vector2 direction, Animator animator)
+        {
+            if (direction != Vector2.zero && direction.magnitude > 0)
+            {
+                animator.SetBool("isMoving", true);
+                animator.SetFloat("vertical", direction.y);
+                animator.SetFloat("horizontal", direction.x);
+            }
+        }
+
+        public void Walk(Animator animator, Rigidbody2D rigidbody2D, Movement movement) {
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+            switch (horizontal)
+            {
+                case 1:
+                    movement.SetLastDirection('E');
+                    break;
+                case -1:
+                    movement.SetLastDirection('W');
+                    break;
+                default:
+                    switch (vertical)
+                    {
+                        case 1:
+                            movement.SetLastDirection('N');
+                            break;
+                        case -1:
+                            movement.SetLastDirection('S');
+                            break;
+                        default:
+                        break;
+                    }
+                    break;
+            }
+
+            if (horizontal == 0 && vertical == 0) {
+                animator.SetBool("isMoving", false);
+                rigidbody2D.velocity = Vector2.zero;
+            }
+
+            if ((horizontal > 0 && vertical == 0) || (horizontal == 0 && vertical > 0) || (horizontal < 0 && vertical == 0) || (horizontal == 0 && vertical < 0)){
+                Vector2 direction = new Vector2(horizontal, vertical);
+                AnimateMovement(direction, animator);
+                rigidbody2D.velocity = new Vector2(horizontal * (isRunning?runSpeed: walkSpeed) * Time.timeScale, vertical* (isRunning?runSpeed: walkSpeed) * Time.timeScale);
+            }
+        }
+
+        public void ChangeRunState() {
+            isRunning = !isRunning;
+        }
+
+    }
+
+
+    class DashManager
+    {
+        private bool hasToDash;
+
+        private float dashDistance; // Distance covered by the player character during a dash
+
+        private float dashDuration; // Duration of the dash animation in seconds
+
+
+        public DashManager()
+        {
+            hasToDash = false;
+            dashDistance = 2.5f;
+            dashDuration = 0.1f;
+        }
+
+
+        public void HasToDash() {
+            hasToDash = true;
+        }
+
+        public bool GetHasToDash() {
+            return hasToDash;
+        }
+
+        public IEnumerator Dash(Movement movement, Rigidbody2D rigidbody2D) {
+            hasToDash = false;
+            movement.SetIsOnAnimation(true);
+
+            Vector2 dashDirection = Vector2.zero;
+            switch (movement.GetLastDirection())
+            {
+                case 'S':
+                    dashDirection = new Vector2(0, -1);
+                    break;
+                case 'N':
+                    dashDirection = new Vector2(0, 1);
+                    break;
+                case 'W':
+                    dashDirection = new Vector2(-1, 0);
+                    break;
+                case 'E':
+                    dashDirection = new Vector2(1, 0);
+                    break;
+
+                default:
+                    break;
+            }
+ 
+
+            float elapsedTime = 0f;
+            while (elapsedTime < dashDuration)
+            {
+                rigidbody2D.velocity = new Vector2(dashDirection.x * (dashDistance / dashDuration) * Time.deltaTime, dashDirection.y *(dashDistance / dashDuration) * Time.deltaTime);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            movement.SetIsOnAnimation(false);
+            rigidbody2D.velocity = Vector2.zero;
+        }
+    }
+}

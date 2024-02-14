@@ -7418,12 +7418,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0793590e8db64d4fb0831d37de05a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 2
-  sprintSpeed: 5
-  dashDistance: 2.5
-  dashDuration: 0.1
   animator: {fileID: 1651144816}
-  spriteRenderer: {fileID: 1651144815}
+  rigidbody2D: {fileID: 1133905035}
+  walkManager:
+    walkSpeed: 3
+    runSpeed: 5
 --- !u!50 &1133905035
 Rigidbody2D:
   serializedVersion: 4
