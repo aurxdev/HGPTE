@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
@@ -15,14 +16,26 @@ public class InventoryUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab)){
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
             UpdateUI(!inventoryPanel.activeSelf);
-            Transform childTransform = inventoryPanel.transform.GetChild(0).GetChild(0);
-            Debug.Log(childTransform.name);
         }
     }
     
 
     public void UpdateUI(Boolean show){
+        Transform childTransform = inventoryPanel.transform.GetChild(0).GetChild(0);
+        if (show)
+        {
+            List <Slot> slots = player.inventory.slots;
+            for (int i = 0; i < slots.Count; i++)
+            {
+                if (slots[i].type == CollectableType.None)
+                {
+                }
+            }
+        }
+        else
+        {
 
+        }
     }
 
 }
