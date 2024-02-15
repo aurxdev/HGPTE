@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,14 +8,10 @@ public class OpenInventory : MonoBehaviour
 {
     [SerializeField]
     public GameObject inventory;
-    public GameObject btn;
-    void Update()
+    public void showUI()
     {
-        btn.transform.GetComponent<Button>().onClick.AddListener(() => activeInventory(inventory.activeSelf));
+        inventory.SetActive(!inventory.activeSelf); // on active ou desactive
     }
 
-    public void activeInventory(Boolean show)
-    {
-        inventory.SetActive(show);
-    }
+
 }

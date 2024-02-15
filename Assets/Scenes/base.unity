@@ -9099,6 +9099,7 @@ GameObject:
   - component: {fileID: 1936538897}
   - component: {fileID: 1936538896}
   - component: {fileID: 1936538895}
+  - component: {fileID: 1936538898}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -9195,6 +9196,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936538893}
   m_CullTransparentMesh: 1
+--- !u!114 &1936538898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936538893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 939312be2c8be144ab732983d94a4d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 1936538893}
 --- !u!1 &2072655091
 GameObject:
   m_ObjectHideFlags: 0
@@ -9207,7 +9221,6 @@ GameObject:
   - component: {fileID: 2072655095}
   - component: {fileID: 2072655094}
   - component: {fileID: 2072655093}
-  - component: {fileID: 2072655096}
   m_Layer: 5
   m_Name: OpenInventory
   m_TagString: Untagged
@@ -9279,7 +9292,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2072655094}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1936538898}
+        m_TargetAssemblyTypeName: OpenInventory, Assembly-CSharp
+        m_MethodName: showUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2072655094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9318,20 +9343,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072655091}
   m_CullTransparentMesh: 1
---- !u!114 &2072655096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2072655091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 939312be2c8be144ab732983d94a4d6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 1936538893}
-  btn: {fileID: 2072655091}
 --- !u!1 &2100079943
 GameObject:
   m_ObjectHideFlags: 0
