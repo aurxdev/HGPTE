@@ -4,15 +4,16 @@ using UnityEngine;
 
 [System.Serializable]
 public class Slot{
-    public CollectableType type; // Type of item in the slot
-    public int count; // Number of items in the slot
-    public int maxItems; // Maximum number of items in the slot
-
-    public Sprite icon; 
+    public ItemType type;
+    public int count; 
+    public int maxItems; 
+    public Sprite icon;
+    public string name; 
+    public int id;
 
     public Slot(){
-        type = CollectableType.Coin;
-        count = 10;
+        type = ItemType.NONE;
+        count = 0;
         maxItems = 64;
     }
 
@@ -20,9 +21,11 @@ public class Slot{
         return count < maxItems;
     }
 
-    public void AddItem(Collectable item){
-        this.type = item.type;
-        this.icon = item.icon;
-        count++;
+    public void AddItem(Collectable c){
+        this.id=c.item.id;
+        this.type = c.item.type;
+        this.icon = c.item.imageInventory;
+        this.name = c.item.itemName;
+        this.count++;
     }
 }

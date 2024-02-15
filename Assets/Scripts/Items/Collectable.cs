@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    public CollectableType type;
-    public int id;
-    public int nb;
-    public bool isCollectable = true;
-    public Sprite icon;
-
+    public ItemData item;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Player player = collision.GetComponent<Player>();
-        if (player && isCollectable)
+        if (player && item != null && item.isCollectable)
         {
             player.inventory.Add(this);
             Destroy(gameObject);
@@ -22,11 +17,3 @@ public class Collectable : MonoBehaviour
     }
 }
 
-
-public enum CollectableType
-{
-    None,
-    HealthPotion,
-    ManaPotion,
-    Coin
-}

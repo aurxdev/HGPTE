@@ -16,9 +16,6 @@ public class InventoryUI : MonoBehaviour
     // instance du joueur
     public Player player;
 
-    // 
-    public List<SlotUI> slots = new List<SlotUI>();
-
     void Update(){
         if (Input.GetKeyDown(KeyCode.Tab)){
             inventoryPanel.SetActive(!inventoryPanel.activeSelf); // on active ou desactive
@@ -33,18 +30,20 @@ public class InventoryUI : MonoBehaviour
             List <Slot> slots = player.inventory.slots;
             for (int i = 0; i < slots.Count; i++)
             {
-                if (slots[i].type == CollectableType.None)
+                if (slots[i].type == ItemType.NONE)
                 {
                     GameObject slotUi = Instantiate(inventorySlotPrefab);
                     slotUi.transform.GetChild(0).gameObject.GetComponent<Text>().text = "";
-                    slotUi.transform.GetChild(1).gameObject.SetActive(false);
+                    slotUi.transform.GetChild(1).gameObject.GetComponent<Text>().text = "";
+                    slotUi.transform.GetChild(2).gameObject.SetActive(false);
                     slotUi.transform.SetParent(content.transform, false);
                 }
                 else
                 {
                     GameObject slotUi = Instantiate(inventorySlotPrefab);
-                    slotUi.transform.GetChild(0).gameObject.GetComponent<Text>().text = slots[i].count.ToString();
-                    slotUi.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = slots[i].icon;
+                    slotUi.transform.GetChild(0).gameObject.GetComponent<Text>().text = slots[i].name;
+                    slotUi.transform.GetChild(1).gameObject.GetComponent<Text>().text = slots[i].count.ToString();
+                    slotUi.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = slots[i].icon;
                     slotUi.transform.SetParent(content.transform, false);
                 }
             }
