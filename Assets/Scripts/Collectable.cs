@@ -10,6 +10,7 @@ public class Collectable : MonoBehaviour
     public bool isCollectable = true;
     public Sprite icon;
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Player player = collision.GetComponent<Player>();

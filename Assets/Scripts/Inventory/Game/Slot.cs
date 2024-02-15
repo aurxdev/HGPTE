@@ -11,8 +11,8 @@ public class Slot{
     public Sprite icon; 
 
     public Slot(){
-        type = CollectableType.None;
-        count = 0;
+        type = CollectableType.Coin;
+        count = 10;
         maxItems = 64;
     }
 
