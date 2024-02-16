@@ -18,7 +18,7 @@ public class Slot{
     }
 
     public bool CanAddItem(){
-        return count < maxItems;
+        return count <= maxItems;
     }
 
     public void AddItem(Collectable c){

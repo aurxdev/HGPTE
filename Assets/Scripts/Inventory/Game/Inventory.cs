@@ -6,6 +6,10 @@ using UnityEngine;
 public class Inventory{
 
     public List<Slot> slots = new List<Slot>();
+
+    public Collectable lastItem;
+    public Slot lastSlot;
+
     // observer
     public delegate void OnInventoryChanged();
     public event OnInventoryChanged onInventoryChanged;
@@ -27,10 +31,12 @@ public class Inventory{
     //scriptable object
 
     public void Add(Collectable c){
+        lastItem = c;
         // on parcours une premiere fois l'inventaire pour trouver un slot si les 2 ont le meme ID
         foreach(Slot slot in slots){
             if (slot.id == c.item.id && slot.CanAddItem()){
                 slot.AddItem(c);
+                lastSlot=slot;
                 // on declenche l'event
                 onInventoryChanged?.Invoke();
                 return;
@@ -40,10 +46,12 @@ public class Inventory{
         foreach(Slot slot in slots){
             if (slot.type == ItemType.NONE){
                 slot.AddItem(c);
+                lastSlot=slot;
                 // on declenche l'event
                 onInventoryChanged?.Invoke();
                 return;
             }
         }
+        lastItem=null;
     }
 }
