@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: _srw_tileset_0_3
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -26196881, guid: 3f1d5ad53d9292bb8a3c1e142866e5d4, type: 3}
+  m_Sprite: {fileID: -1640761381, guid: e526814d7c165902a8120429598cffae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

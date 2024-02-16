@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: atlas_32x_3
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1359764858, guid: 22a747e7d1a6396eaa8696d6b9ac9fa2, type: 3}
+  m_Sprite: {fileID: 1845965365, guid: 78f6b81b6a341ef4ead0ca4783dd055b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
