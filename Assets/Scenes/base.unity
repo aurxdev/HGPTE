@@ -7812,7 +7812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherPortal: {fileID: 1174875258}
-  direction: 69
+  direction: 3
 --- !u!58 &333445609
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -22372,7 +22372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherPortal: {fileID: 333445607}
-  direction: 87
+  direction: 2
 --- !u!58 &1174875260
 CircleCollider2D:
   m_ObjectHideFlags: 0
