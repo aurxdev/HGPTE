@@ -11,4 +11,5 @@ public class MovementManager : MonoBehaviour
     public char LastDirection { get; set; }
 
     public bool IsOnAnimation { get; set; } = false;
+
 }
