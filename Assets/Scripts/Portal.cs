@@ -37,13 +37,18 @@ class Portal : MonoBehaviour
 
     private float time = 0f;
 
+    private GameObject player;
 
 
-    void OnTriggerEnter2D(Collider2D other)
+    void Start()
     {
+        player = null;
+    }
+
+
+    private void Teleport() {
         if (state == PortalState.Open)
         {
-            GameObject player = other.gameObject;
             if (player)
             {
                 if (otherPortal.GetComponent<Portal>().direction == Direction.E)
@@ -78,7 +83,21 @@ class Portal : MonoBehaviour
             Destroy(gameObject);
             Destroy(otherPortal);
         }
+        player = null;
     }
+
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        player = other.gameObject;
+    }
+
+    void OnTriggerExit2D()
+    {
+        player = null;
+    }
+
 
     void Update()
     {
@@ -89,6 +108,11 @@ class Portal : MonoBehaviour
             {
                 state = PortalState.Open;
             }
+        }
+
+        if (player != null && Input.GetKeyDown(KeyCode.E))
+        {
+            Teleport();
         }
 
         if (state == PortalState.Cooldown)

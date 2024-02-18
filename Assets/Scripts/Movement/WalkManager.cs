@@ -12,7 +12,7 @@ public class WalkManager : MonoBehaviour
 
     private float speed;
 
-    private float abs(float value) {
+    private float Abs(float value) {
         if (value < 0) {
             return -value;
         }
@@ -34,7 +34,7 @@ public class WalkManager : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
-        if (abs(horizontal) > abs(vertical)) {
+        if (Abs(horizontal) > Abs(vertical)) {
             vertical = 0;
         } else {
             horizontal = 0;
