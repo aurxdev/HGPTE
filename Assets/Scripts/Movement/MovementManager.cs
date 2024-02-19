@@ -18,4 +18,13 @@ public class MovementManager : MonoBehaviour
         return IsDashing;
     }
 
+    void Update()
+    {
+        //If is stuck
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            gameObject.transform.position = new Vector2(13.16f, -8.49f);
+        }
+    }
+
 }

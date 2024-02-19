@@ -64,7 +64,8 @@ namespace DashManager
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            MovementManager movement = GetComponent<MovementManager>();
+            if (Input.GetKeyDown(KeyCode.LeftControl) && !movement.IsOnAnimation())
             {
                 hasToDash = true;
             }
@@ -76,7 +77,7 @@ namespace DashManager
             Animator visualAnimator = GetComponentInChildren<Animator>();
             Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
             MovementManager movement = GetComponent<MovementManager>();
-            if (visualAnimator != null && rigidbody2D != null && movement != null && hasToDash && !movement.IsOnAnimation())
+            if (visualAnimator != null && rigidbody2D != null && movement != null && hasToDash)
             {
                     Dash(movement, rigidbody2D, visualAnimator);
             }
