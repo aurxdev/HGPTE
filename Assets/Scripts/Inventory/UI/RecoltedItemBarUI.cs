@@ -26,7 +26,7 @@ public class RecoltedItemBarUI : MonoBehaviour
         if(lastSlot != null){
             GameObject slotUi = Instantiate(inventorySlotPrefab);
             slotUi.transform.GetChild(0).gameObject.GetComponent<Text>().text = lastSlot.name;
-            slotUi.transform.GetChild(1).gameObject.GetComponent<Text>().text = lastSlot.count.ToString();
+            slotUi.transform.GetChild(1).gameObject.GetComponent<Text>().text = "";
             slotUi.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = lastSlot.icon;
             slotUi.transform.SetParent(content.transform, false);
             slotUi.transform.SetAsFirstSibling();
@@ -39,7 +39,7 @@ public class RecoltedItemBarUI : MonoBehaviour
 
     private IEnumerator FadeOutAndDestroy(GameObject slotUi, float duration)
     {
-        // Attendez une seconde avant de commencer l'animation
+        // on attends 1sec
         yield return new WaitForSeconds(1);
 
 
