@@ -4,6 +4,8 @@ using System.Runtime.ConstrainedExecution;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 
 public enum Direction // votre énumération personnalisée
 {
@@ -38,7 +40,6 @@ class Portal : MonoBehaviour
     private float time = 0f;
 
     private GameObject player;
-
 
     void Start()
     {
@@ -110,7 +111,7 @@ class Portal : MonoBehaviour
             }
         }
 
-        if (player != null && Input.GetKeyDown(KeyCode.E))
+        if (player != null && Input.GetKeyDown(KeyCode.E) && !player.GetComponent<MovementManager>().IsOnAnimation())
         {
             Teleport();
         }

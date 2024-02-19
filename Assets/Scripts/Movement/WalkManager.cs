@@ -98,7 +98,7 @@ public class WalkManager : MonoBehaviour
         Animator visualAnimator = GetComponentInChildren<Animator>();
         Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
         MovementManager movement = GetComponent<MovementManager>();
-        if (visualAnimator != null && rigidbody2D != null && movement != null && !movement.IsOnAnimation)
+        if (visualAnimator != null && rigidbody2D != null && movement != null && !movement.IsOnAnimation())
         {
             Walk(visualAnimator, GetComponent<Rigidbody2D>(), GetComponent<MovementManager>());
         }

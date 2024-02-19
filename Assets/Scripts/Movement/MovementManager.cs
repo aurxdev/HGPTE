@@ -10,6 +10,12 @@ public class MovementManager : MonoBehaviour
 {
     public char LastDirection { get; set; }
 
-    public bool IsOnAnimation { get; set; } = false;
+    public bool IsDashing { get; set; } = false;
+
+    public bool IsTeleporting { get; set; } = false;
+
+    public bool IsOnAnimation() {
+        return IsDashing;
+    }
 
 }
