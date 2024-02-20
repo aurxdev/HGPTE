@@ -11,7 +11,7 @@ public class ChestCopper : MonoBehaviour
     [SerializeField]
     private GameObject collectiblePrefab;
     [SerializeField]
-    private List<ScriptableObject> collectible;
+    private List<ItemData> collectible;
 
     bool isTrigger;
 
@@ -30,6 +30,13 @@ public class ChestCopper : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = openSprite;
 
+            int randomIndex = Random.Range(0, 2);
+
+            Vector3 randomOffset = Random.insideUnitSphere * distance;
+            Vector3 randomPosition = gameObject.transform.position + new Vector3(randomOffset.x, randomOffset.y, 0);
+            GameObject c = Instantiate(collectiblePrefab, randomPosition, gameObject.transform.rotation);
+            c.GetComponent<Collectable>().item = collectible[randomIndex];
+            /*c.transform.SetParent(gameObject.transform, false);*/
         }
     }
 }

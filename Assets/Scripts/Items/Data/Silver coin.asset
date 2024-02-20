@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: "Pi\xE8ce d'argent"
   type: 3
   description: 
-  imageMap: {fileID: 0}
+  imageMap: {fileID: -507841972, guid: 78255be5b8955484fa89d38e39f90957, type: 3}
   imageInventory: {fileID: 21300000, guid: 83f2beb3e2ba2e347b4b0d5d63d0373b, type: 3}
   isCollectable: 1

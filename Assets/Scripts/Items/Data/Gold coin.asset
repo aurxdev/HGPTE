@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: "Pi\xE8ce d'or"
   type: 3
   description: "Une petite pi\xE8ce d'or.."
-  imageMap: {fileID: 0}
+  imageMap: {fileID: 1495503371, guid: 96445ee79f3224c4f99d010583683a31, type: 3}
   imageInventory: {fileID: 21300000, guid: 394899dbf2938874ca7d1025f7598406, type: 3}
   isCollectable: 1
