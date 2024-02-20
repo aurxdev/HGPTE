@@ -12,7 +12,6 @@ public class RecoltedItemBarUI : MonoBehaviour
     void Start()
     {
         player.inventory.onInventoryChanged += UpdateUI; // on ajoute l'event
-        UpdateUI(); 
     }
 
     void OnDestroy()
