@@ -21958,7 +21958,7 @@ GameObject:
   - component: {fileID: 1133905041}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72962,19 +72962,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6169092086694185270, guid: f875da426d7a4ef4998a1abdaef16d08, type: 3}
       propertyPath: distance
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6337541802758900259, guid: f875da426d7a4ef4998a1abdaef16d08, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.0593746
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6337541802758900259, guid: f875da426d7a4ef4998a1abdaef16d08, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -14.78511
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6337541802758900259, guid: f875da426d7a4ef4998a1abdaef16d08, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.00594717
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6337541802758900259, guid: f875da426d7a4ef4998a1abdaef16d08, type: 3}
       propertyPath: m_LocalRotation.w
@@ -73003,6 +73003,14 @@ PrefabInstance:
     - target: {fileID: 6337541802758900259, guid: f875da426d7a4ef4998a1abdaef16d08, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918810149527838749, guid: f875da426d7a4ef4998a1abdaef16d08, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918810149527838749, guid: f875da426d7a4ef4998a1abdaef16d08, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

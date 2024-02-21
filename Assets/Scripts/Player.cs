@@ -8,8 +8,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     public Inventory inventory;
 
+    public const int TAILLE_INVENTAIRE = 10;
+
     private void Awake()
     {
-        inventory = new Inventory(10);
+        inventory = new Inventory(TAILLE_INVENTAIRE);
     }
 }

@@ -1,22 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
     public ItemData item;
-    private float radius = 3f;
+    private float radius = 0.1f;
 
     private void Start()
     {
-        // Détermine les collisions avec d'autres objets dans une sphère autour de cet objet au démarrage
-        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
+        UnityEngine.Vector2 vec = new UnityEngine.Vector2(transform.position.x, transform.position.y);
 
-        // Parcourir les colliders détectés
-        foreach (Collider collider in colliders)
+        Collider2D hit = Physics2D.OverlapCircle(vec, radius);
+        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+
+        if (hit != null && hit.gameObject.tag != "Collectible")
         {
-            // Faire quelque chose avec chaque objet en collision
-            Debug.Log("Collision avec : " + collider.gameObject.name);
+            player.inventory.Add(this);
+            Destroy(gameObject);
         }
         gameObject.GetComponent<SpriteRenderer>().sprite = item.imageMap;
     }

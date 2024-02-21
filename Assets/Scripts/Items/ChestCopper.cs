@@ -13,7 +13,9 @@ public class ChestCopper : MonoBehaviour
     [SerializeField]
     private List<ItemData> collectible;
 
-    bool isTrigger;
+    private bool isTrigger;
+
+    private bool isOpen=false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -30,13 +32,17 @@ public class ChestCopper : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = openSprite;
 
-            int randomIndex = Random.Range(0, 2);
+            int randomIndex = Random.Range(0, collectible.Count-1);
 
             Vector3 randomOffset = Random.insideUnitSphere * distance;
-            Vector3 randomPosition = gameObject.transform.position + new Vector3(randomOffset.x, randomOffset.y, 0);
+            Vector3 randomPosition = new Vector3(randomOffset.x, randomOffset.y, 0);
             GameObject c = Instantiate(collectiblePrefab, randomPosition, gameObject.transform.rotation);
+
+            // on set l'item dans le collectable
             c.GetComponent<Collectable>().item = collectible[randomIndex];
-            /*c.transform.SetParent(gameObject.transform, false);*/
+
+
+            c.transform.SetParent(gameObject.transform, false);
         }
     }
 }
