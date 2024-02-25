@@ -17,7 +17,7 @@ namespace DashManager
 
         private Animator visualAnimator;
 
-        private Rigidbody2D rigidbody2D;
+        private new Rigidbody2D rigidbody2D;
 
         private MovementManager movementManager;
 
@@ -62,13 +62,12 @@ namespace DashManager
                     break;
             }
 
-            if (!CanDash(direction))
+            if (CanDash(direction))
             {
-                return;
+                rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
             }
 
             movementManager.IsDashing = true;
-            rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
 
             if (direction != Vector2.zero)
             {
