@@ -37,13 +37,22 @@ class Portal : MonoBehaviour
     [SerializeField]
     private float cooldown = 3f;
 
+    [SerializeField]
+    private float interactionDistance;
+
     private float time = 0f;
 
     private GameObject player;
 
-    void Start()
+    private CircleCollider2D circleCollider2D;
+
+
+
+    void Awake()
     {
         player = null;
+        circleCollider2D = GetComponent<CircleCollider2D>();
+        interactionDistance = circleCollider2D.radius;
     }
 
 
@@ -102,6 +111,12 @@ class Portal : MonoBehaviour
 
     void Update()
     {
+        if (interactionDistance != circleCollider2D.radius)
+        {
+            circleCollider2D.radius = interactionDistance;
+        }
+
+
         if (state == PortalState.Cooldown)
         {
             time -= Time.deltaTime;
