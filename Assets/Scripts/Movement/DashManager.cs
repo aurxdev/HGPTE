@@ -21,6 +21,8 @@ namespace DashManager
 
         private MovementManager movementManager;
 
+        private bool hasToDash;
+
         
 
         void Awake()
@@ -29,6 +31,7 @@ namespace DashManager
             visualAnimator = GetComponentInChildren<Animator>();
             rigidbody2D = GetComponent<Rigidbody2D>();
             movementManager = GetComponent<MovementManager>();
+            hasToDash = false;
         }
 
 
@@ -43,6 +46,7 @@ namespace DashManager
 
         
         private void Dash() {
+            hasToDash = false;
             Vector2 direction = Vector2.zero;
             switch (movementManager.LastDirection)
             {
@@ -84,7 +88,7 @@ namespace DashManager
             MovementManager movement = GetComponent<MovementManager>();
             if (Input.GetKeyDown(KeyCode.LeftControl) && !movement.IsOnAnimation())
             {
-                Dash();
+                hasToDash = true;
             }
             
             if (elapsedTime > 0)
@@ -98,6 +102,15 @@ namespace DashManager
                     elapsedTime = 0f;
                 }
             }
+        }
+        
+
+        void FixedUpdate()
+        {
+            if (hasToDash)
+            {
+                Dash();
+            }    
         }
     }
 }

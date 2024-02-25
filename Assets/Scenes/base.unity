@@ -22048,8 +22048,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71324a827f2c82ff997139edca90b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashDistance: 3
-  dashDuration: 0.075
+  dashDistance: 5
+  dashDuration: 0.1
 --- !u!114 &1133905039
 MonoBehaviour:
   m_ObjectHideFlags: 0
