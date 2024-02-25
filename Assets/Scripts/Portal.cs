@@ -54,19 +54,19 @@ class Portal : MonoBehaviour
             {
                 if (otherPortal.GetComponent<Portal>().direction == Direction.E)
                 {
-                    player.transform.position = new Vector2(otherPortal.transform.position.x + 3, otherPortal.transform.position.y);
+                    player.transform.position = new Vector2(otherPortal.transform.position.x + 1, otherPortal.transform.position.y);
                 }
                 else if (otherPortal.GetComponent<Portal>().direction == Direction.W)
                 {
-                    player.transform.position = new Vector2(otherPortal.transform.position.x - 3, otherPortal.transform.position.y);
+                    player.transform.position = new Vector2(otherPortal.transform.position.x - 1, otherPortal.transform.position.y);
                 }
                 else if (otherPortal.GetComponent<Portal>().direction == Direction.N)
                 {
-                    player.transform.position = new Vector2(otherPortal.transform.position.x, otherPortal.transform.position.y + 3);
+                    player.transform.position = new Vector2(otherPortal.transform.position.x, otherPortal.transform.position.y + 1);
                 }
                 else if (otherPortal.GetComponent<Portal>().direction == Direction.S)
                 {
-                    player.transform.position = new Vector2(otherPortal.transform.position.x, otherPortal.transform.position.y - 3);
+                    player.transform.position = new Vector2(otherPortal.transform.position.x, otherPortal.transform.position.y - 1);
                 }
 
                 gameObject.GetComponent<SpriteRenderer>().sprite = CooldownSprite;
