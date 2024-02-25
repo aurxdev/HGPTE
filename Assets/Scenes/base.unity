@@ -15742,7 +15742,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 150, y: -600}
+  m_AnchoredPosition: {x: 150, y: -600.17}
   m_SizeDelta: {x: 300, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &575407355
@@ -22019,9 +22019,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adfffd8844358da44be9bc3ee9c8dca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 70
+  hp: 100
   maxHp: 100
-  stamina: 50
+  stamina: 200
   maxStamina: 200
   inventory:
     slots: []
@@ -22048,8 +22048,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71324a827f2c82ff997139edca90b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashDistance: 5
-  dashDuration: 0.1
+  dashDistance: 3
+  dashDuration: 0.075
 --- !u!114 &1133905039
 MonoBehaviour:
   m_ObjectHideFlags: 0

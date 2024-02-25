@@ -7,8 +7,6 @@ namespace DashManager
 {
     public class DashManager : MonoBehaviour
     {
-        private bool hasToDash;
-
         [SerializeField]
         private float dashDistance = 2.5f; // Distance covered by the player character during a dash
 
@@ -17,15 +15,34 @@ namespace DashManager
 
         private float elapsedTime; // Time elapsed since the start of the dash
 
-        void Start()
-        {
-            hasToDash = false;
-            elapsedTime = 0f;
-        }
+        private Animator visualAnimator;
+
+        private Rigidbody2D rigidbody2D;
+
+        private MovementManager movementManager;
 
         
-        private void Dash(MovementManager movementManager, Rigidbody2D rigidbody2D, Animator animator) {
-            movementManager.IsDashing = true;
+
+        void Awake()
+        {
+            elapsedTime = 0f;
+            visualAnimator = GetComponentInChildren<Animator>();
+            rigidbody2D = GetComponent<Rigidbody2D>();
+            movementManager = GetComponent<MovementManager>();
+        }
+
+
+        private bool CanDash(Vector2 direction)
+        {
+            Vector2 finalPosition = (Vector2)transform.position + direction * dashDistance;
+            RaycastHit2D hit = Physics2D.Raycast(finalPosition, direction, 0.1f);
+            return hit.collider == null;
+        }
+        
+        
+
+        
+        private void Dash() {
             Vector2 direction = Vector2.zero;
             switch (movementManager.LastDirection)
             {
@@ -45,17 +62,18 @@ namespace DashManager
                     break;
             }
 
+            if (!CanDash(direction))
+            {
+                return;
+            }
+
+            movementManager.IsDashing = true;
+            rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+
             if (direction != Vector2.zero)
             {
                 rigidbody2D.velocity = direction * dashDistance / dashDuration;
-                elapsedTime += Time.deltaTime;
-                if (elapsedTime >= dashDuration)
-                {
-                    hasToDash = false;
-                    elapsedTime = 0f;
-                    rigidbody2D.velocity = Vector2.zero;
-                    movementManager.IsDashing = false;
-                }
+                elapsedTime = dashDuration;
             }
         }
         
@@ -67,19 +85,19 @@ namespace DashManager
             MovementManager movement = GetComponent<MovementManager>();
             if (Input.GetKeyDown(KeyCode.LeftControl) && !movement.IsOnAnimation())
             {
-                hasToDash = true;
+                Dash();
             }
-        }
-
-
-        void FixedUpdate()
-        {
-            Animator visualAnimator = GetComponentInChildren<Animator>();
-            Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
-            MovementManager movement = GetComponent<MovementManager>();
-            if (visualAnimator != null && rigidbody2D != null && movement != null && hasToDash)
+            
+            if (elapsedTime > 0)
             {
-                    Dash(movement, rigidbody2D, visualAnimator);
+                elapsedTime -= Time.deltaTime;
+                if (elapsedTime <= 0)
+                {
+                    rigidbody2D.velocity = Vector2.zero;
+                    rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                    movementManager.IsDashing = false;
+                    elapsedTime = 0f;
+                }
             }
         }
     }
