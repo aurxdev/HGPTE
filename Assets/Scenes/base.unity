@@ -5279,6 +5279,10 @@ PrefabInstance:
       propertyPath: otherPortal
       value: 
       objectReference: {fileID: 1079744966}
+    - target: {fileID: 4540003103746955777, guid: 1b8fb848f91e1b3359d927b4b20e55f4, type: 3}
+      propertyPath: interactionDistance
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6176008217536481702, guid: 1b8fb848f91e1b3359d927b4b20e55f4, type: 3}
       propertyPath: m_Name
       value: Portal
@@ -72120,6 +72124,10 @@ PrefabInstance:
       propertyPath: otherPortal
       value: 
       objectReference: {fileID: 660568021}
+    - target: {fileID: 4540003103746955777, guid: 1b8fb848f91e1b3359d927b4b20e55f4, type: 3}
+      propertyPath: interactionDistance
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6176008217536481702, guid: 1b8fb848f91e1b3359d927b4b20e55f4, type: 3}
       propertyPath: m_Name
       value: Portal (1)

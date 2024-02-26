@@ -10,12 +10,48 @@ public class MovementManager : MonoBehaviour
 {
     public char LastDirection { get; set; }
 
-    public bool IsDashing { get; set; } = false;
+    private Animator animator;
 
-    public bool IsTeleporting { get; set; } = false;
+    private bool isTeleporting = false;
+
+    public bool IsTeleporting
+    {
+        get => isTeleporting;
+        set
+        {
+            isTeleporting = value;
+            if (value && animator != null)
+            {
+                animator.SetBool("isMoving", false);
+            }
+        }
+    }
+
+    private bool isDashing = false;
+
+    public bool IsDashing
+    {
+        get => isDashing;
+        set
+        {
+            isDashing = value;
+            if (value && animator != null)
+            {
+                animator.SetBool("isMoving", false);
+            }
+        }
+    }
+
+
+    
+
+    void Awake()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
 
     public bool IsOnAnimation() {
-        return IsDashing;
+        return IsDashing || IsTeleporting;
     }
 
     void Update()

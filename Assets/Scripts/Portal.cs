@@ -40,11 +40,17 @@ class Portal : MonoBehaviour
     [SerializeField]
     private float interactionDistance;
 
+    [SerializeField]
+    private float timeToTeleport = 0.5f;
+
     private float time = 0f;
 
     private GameObject player;
 
     private CircleCollider2D circleCollider2D;
+
+    private GameObject playerTeleporting;
+
 
 
 
@@ -52,7 +58,28 @@ class Portal : MonoBehaviour
     {
         player = null;
         circleCollider2D = GetComponent<CircleCollider2D>();
-        interactionDistance = circleCollider2D.radius;
+        circleCollider2D.radius = interactionDistance;
+    }
+
+    private static Vector2 GetVectorTeleportation(Rigidbody2D rb, GameObject otherPortal, float timeToTeleport)
+    {
+        switch (otherPortal.GetComponent<Portal>().direction)
+        {
+            case Direction.E:
+                return new Vector2((otherPortal.transform.position.x + 1 - rb.position.x) * (1/timeToTeleport) , (otherPortal.transform.position.y - rb.position.y) * (1/timeToTeleport));
+
+            case Direction.W:
+                return new Vector2((otherPortal.transform.position.x - 1 - rb.position.x) * (1/timeToTeleport), (otherPortal.transform.position.y - rb.position.y) * (1/timeToTeleport));
+            
+            case Direction.N:
+                return new Vector2((otherPortal.transform.position.x - rb.position.x) * (1/timeToTeleport), (otherPortal.transform.position.y + 1 - rb.position.y) * (1/timeToTeleport));
+            
+            case Direction.S:
+                return new Vector2((otherPortal.transform.position.x - rb.position.x) * (1/timeToTeleport), (otherPortal.transform.position.y - 1 - rb.position.y) * (1/timeToTeleport));
+
+            default:
+                return new Vector2(0, 0);
+        }
     }
 
 
@@ -61,21 +88,15 @@ class Portal : MonoBehaviour
         {
             if (player)
             {
-                if (otherPortal.GetComponent<Portal>().direction == Direction.E)
+                playerTeleporting = player;
+                playerTeleporting.GetComponent<MovementManager>().IsTeleporting = true;
+                Rigidbody2D rb = playerTeleporting.GetComponent<Rigidbody2D>();
+
+                StartCoroutine(TeleportationEffect());
+                if (rb)
                 {
-                    player.transform.position = new Vector2(otherPortal.transform.position.x + 1, otherPortal.transform.position.y);
-                }
-                else if (otherPortal.GetComponent<Portal>().direction == Direction.W)
-                {
-                    player.transform.position = new Vector2(otherPortal.transform.position.x - 1, otherPortal.transform.position.y);
-                }
-                else if (otherPortal.GetComponent<Portal>().direction == Direction.N)
-                {
-                    player.transform.position = new Vector2(otherPortal.transform.position.x, otherPortal.transform.position.y + 1);
-                }
-                else if (otherPortal.GetComponent<Portal>().direction == Direction.S)
-                {
-                    player.transform.position = new Vector2(otherPortal.transform.position.x, otherPortal.transform.position.y - 1);
+                    rb.bodyType = RigidbodyType2D.Kinematic;
+                    rb.velocity = GetVectorTeleportation(rb, otherPortal, timeToTeleport);
                 }
 
                 gameObject.GetComponent<SpriteRenderer>().sprite = CooldownSprite;
@@ -93,29 +114,70 @@ class Portal : MonoBehaviour
             Destroy(gameObject);
             Destroy(otherPortal);
         }
-        player = null;
     }
 
 
 
-    void OnTriggerEnter2D(Collider2D other)
+    IEnumerator TeleportationEffect()
+    {
+        // Save original scale and camera position
+        Vector3 originalScale = playerTeleporting.transform.localScale;
+        float originalCameraOrthographicSize = Camera.main.orthographicSize;
+
+        int originalSortingOrder = playerTeleporting.GetComponentInChildren<SpriteRenderer>().sortingOrder;
+
+        playerTeleporting.GetComponentInChildren<SpriteRenderer>().sortingOrder = 10;
+
+        // Increase scale and move camera up
+        for (float t = 0; t < 1; t += Time.deltaTime / timeToTeleport)
+        {
+            if (t < 0.5)
+            {
+                playerTeleporting.transform.localScale = Vector3.Lerp(originalScale, originalScale * 3.5f, t);
+                Camera.main.orthographicSize = Mathf.Lerp(originalCameraOrthographicSize, originalCameraOrthographicSize * 3.5f, t);
+            }
+            else
+            {
+                playerTeleporting.transform.localScale = Vector3.Lerp(originalScale * 3.5f, originalScale, t);
+                Camera.main.orthographicSize = Mathf.Lerp(originalCameraOrthographicSize * 3.5f, originalCameraOrthographicSize, t);
+            }
+            yield return null;
+        }
+
+        // Reset scale and camera position
+        playerTeleporting.transform.localScale = originalScale;
+        Camera.main.orthographicSize = originalCameraOrthographicSize;
+        playerTeleporting.GetComponentInChildren<SpriteRenderer>().sortingOrder = originalSortingOrder;
+
+        playerTeleporting.GetComponent<MovementManager>().IsTeleporting = false;
+        playerTeleporting.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        playerTeleporting = null;
+    }
+
+
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         player = other.gameObject;
     }
 
-    void OnTriggerExit2D()
+    private void OnTriggerExit2D()
     {
         player = null;
     }
 
 
+
+
+
+
     void Update()
     {
+
         if (interactionDistance != circleCollider2D.radius)
         {
             circleCollider2D.radius = interactionDistance;
         }
-
 
         if (state == PortalState.Cooldown)
         {
@@ -131,11 +193,8 @@ class Portal : MonoBehaviour
             Teleport();
         }
 
-        if (state == PortalState.Cooldown)
-        {
-            gameObject.GetComponent<SpriteRenderer>().sprite = CooldownSprite;
-        }
-        else if (state == PortalState.Open)
+
+        if (state == PortalState.Open)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = OpenSprite;
         }
