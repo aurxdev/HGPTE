@@ -18,9 +18,9 @@ public class InventoryUI : MonoBehaviour
 
     void Update(){
         if (Input.GetKeyDown(KeyCode.Tab)){
-            if(!inventoryPanel.activeSelf) inventoryPanel.transform.LeanMoveLocalX(inventoryPanel.transform.localPosition.x + 500, 1f); // si on ferme on slide
+            if(inventoryPanel.activeSelf) inventoryPanel.transform.LeanMoveLocalX(inventoryPanel.transform.localPosition.x + 500, 0.3f).setEaseOutCubic(); // si on ferme on slide
             else{
-                inventoryPanel.transform.LeanMoveLocalX(700, 1f); // si on ouvre on slide
+                inventoryPanel.transform.LeanMoveLocalX(750, 0.3f).setEaseOutCubic(); // si on ouvre on slide
             }
             inventoryPanel.SetActive(!inventoryPanel.activeSelf); // on active ou desactive
             UpdateUI(!inventoryPanel.activeSelf); // on update l'UI
