@@ -21369,7 +21369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1073124339
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32836,7 +32836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1936538894
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32872,7 +32872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 849778250}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -73021,11 +73021,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6918810149527838749, guid: f875da426d7a4ef4998a1abdaef16d08, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.93
+      value: 14.7
       objectReference: {fileID: 0}
     - target: {fileID: 6918810149527838749, guid: f875da426d7a4ef4998a1abdaef16d08, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.4
+      value: -9.76
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

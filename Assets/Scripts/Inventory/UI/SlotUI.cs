@@ -6,6 +6,7 @@ public class SlotUI : MonoBehaviour
 {
     private int nb;
     private int id;
+    private bool empty = true;
 
     public SlotUI(int id, int nb)
     {
