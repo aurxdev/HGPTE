@@ -8,6 +8,7 @@ public class Collectable : MonoBehaviour
     public ItemData item;
     private float radius = 0.1f;
 
+
     private void Start()
     {
         UnityEngine.Vector2 vec = new UnityEngine.Vector2(transform.position.x, transform.position.y);
@@ -23,7 +24,6 @@ public class Collectable : MonoBehaviour
         }
         gameObject.GetComponent<SpriteRenderer>().sprite = item.imageMap;
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
