@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,9 +10,13 @@ public class InventoryUI : MonoBehaviour
 {
     [SerializeField]
     public GameObject inventoryPanel;
+    [SerializeField]
     public GameObject inventorySlotPrefab;
-
+    [SerializeField]
     public GameObject content;
+
+    [SerializeField]
+    private GameObject container;
 
     // instance du joueur
     public Player player;
@@ -38,17 +43,14 @@ public class InventoryUI : MonoBehaviour
                 if (slots[i].type == ItemType.NONE)
                 {
                     GameObject slotUi = Instantiate(inventorySlotPrefab);
-                    slotUi.transform.GetChild(0).gameObject.GetComponent<Text>().text = "";
-                    slotUi.transform.GetChild(1).gameObject.GetComponent<Text>().text = "";
-                    slotUi.transform.GetChild(2).gameObject.SetActive(false);
+                    Destroy(slotUi.transform.GetChild(0).gameObject);
                     slotUi.transform.SetParent(content.transform, false);
                 }
                 else
                 {
                     GameObject slotUi = Instantiate(inventorySlotPrefab);
-                    slotUi.transform.GetChild(0).gameObject.GetComponent<Text>().text = slots[i].name;
-                    slotUi.transform.GetChild(1).gameObject.GetComponent<Text>().text = slots[i].count.ToString();
-                    slotUi.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = slots[i].icon;
+                    slotUi.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = slots[i].icon;
+                    slotUi.transform.GetChild(0).gameObject.GetComponent<DraggableItem>().container = container;
                     slotUi.transform.SetParent(content.transform, false);
                 }
             }

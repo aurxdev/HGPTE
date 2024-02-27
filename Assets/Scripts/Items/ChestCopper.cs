@@ -28,6 +28,11 @@ public class ChestCopper : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        isTrigger=false;
+    }
+
     private void SpawnItem(){
         gameObject.GetComponent<SpriteRenderer>().sprite = openSprite;
 

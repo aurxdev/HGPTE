@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+{
+    [SerializeField]
+    private Image icon;
+    [SerializeField]
+    public GameObject container;
+    [HideInInspector]
+    public Transform parentAfterDrag;
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        parentAfterDrag = transform.parent;
+        transform.SetParent(container.transform);
+        transform.SetAsLastSibling();
+        icon.raycastTarget = false;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        transform.position = Input.mousePosition;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        transform.SetParent(parentAfterDrag);
+        icon.raycastTarget = true;
+    }
+
+}
