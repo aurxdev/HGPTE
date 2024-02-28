@@ -38,7 +38,7 @@ namespace DashManager
         private bool CanDash(Vector2 direction)
         {
             Vector2 finalPosition = (Vector2)transform.position + direction * dashDistance;
-            RaycastHit2D hit = Physics2D.Raycast(finalPosition, direction, 0.1f);
+            RaycastHit2D hit = Physics2D.Raycast(finalPosition, direction, 0.2f);
             return hit.collider == null;
         }
         

@@ -14,6 +14,16 @@ public class MovementManager : MonoBehaviour
 
     private bool isTeleporting = false;
 
+    private Sprite[] sprites;
+
+    public static readonly int idSpriteDown = 0;
+
+    public static readonly int idSpriteUp = 19;
+
+    public static readonly int idSpriteLeft = 27;
+
+    public static readonly int idSpriteRight = 8;
+
     public bool IsTeleporting
     {
         get => isTeleporting;
@@ -42,25 +52,31 @@ public class MovementManager : MonoBehaviour
         }
     }
 
-
-    
-
     void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        sprites = Resources.LoadAll<Sprite>("Graphics/Images/Sprites/Character/character");
     }
 
-    public bool IsOnAnimation() {
+
+    public void setSprite(int id) {
+        if (id >= 0 && id < sprites.Length) {
+            GetComponentInChildren<SpriteRenderer>().sprite = sprites[id];
+        }
+    }
+
+    
+
+    public bool IsOnAnimation()
+    {
         return IsDashing || IsTeleporting;
     }
 
     void Update()
     {
-        //If is stuck
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            gameObject.transform.position = new Vector2(13.16f, -8.49f);
-        }
+        Debug.Log("Sprite to load " + sprites[0]);
+        Debug.Log("Sprite loaded " + GetComponentInChildren<SpriteRenderer>().sprite);
+        GetComponentInChildren<SpriteRenderer>().sprite = sprites[0];
     }
 
 }
