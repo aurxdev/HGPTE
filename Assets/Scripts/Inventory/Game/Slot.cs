@@ -11,6 +11,8 @@ public class Slot{
     public string name; 
     public int id;
 
+    public string description;
+
     public Slot(){
         type = ItemType.NONE;
         count = 0;
@@ -26,6 +28,7 @@ public class Slot{
         this.type = c.item.type;
         this.icon = c.item.imageInventory;
         this.name = c.item.itemName;
+        this.description = c.item.description;
         this.count++;
     }
 }

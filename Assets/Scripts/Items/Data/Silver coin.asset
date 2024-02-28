@@ -15,7 +15,11 @@ MonoBehaviour:
   id: 2
   itemName: "Pi\xE8ce d'argent"
   type: 3
-  description: 
+  description: "Une pi\xE8ce d'argent \xE9tincelante, refl\xE9tant la lumi\xE8re
+    d'une mani\xE8re \xE9clatante. Son motif grav\xE9, bien que moins d\xE9taill\xE9
+    que celui d'une pi\xE8ce d'or, t\xE9moigne toujours de son importance \xE9conomique.
+    Plus l\xE9g\xE8re que son homologue en or, elle reste un symbole de richesse
+    et d'\xE9change dans le royaume."
   imageMap: {fileID: -507841972, guid: 78255be5b8955484fa89d38e39f90957, type: 3}
   imageInventory: {fileID: 21300000, guid: 83f2beb3e2ba2e347b4b0d5d63d0373b, type: 3}
   isCollectable: 1

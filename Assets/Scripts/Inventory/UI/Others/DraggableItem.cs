@@ -10,8 +10,11 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private Image icon;
     [SerializeField]
     public GameObject container;
+    [SerializeField]
+    private GameObject inventoryInformations;
     [HideInInspector]
     public Transform parentAfterDrag;
+
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -19,6 +22,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.SetParent(container.transform);
         transform.SetAsLastSibling();
         icon.raycastTarget = false;
+
     }
 
     public void OnDrag(PointerEventData eventData)

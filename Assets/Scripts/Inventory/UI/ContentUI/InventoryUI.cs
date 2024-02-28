@@ -17,6 +17,8 @@ public class InventoryUI : MonoBehaviour
 
     [SerializeField]
     private GameObject container;
+    [SerializeField]
+    private GameObject inventoryInformations;
 
     // instance du joueur
     public Player player;
@@ -42,16 +44,24 @@ public class InventoryUI : MonoBehaviour
             {
                 if (slots[i].type == ItemType.NONE)
                 {
-                    GameObject slotUi = Instantiate(inventorySlotPrefab);
-                    Destroy(slotUi.transform.GetChild(0).gameObject);
-                    slotUi.transform.SetParent(content.transform, false);
+                    GameObject slotPrefab = Instantiate(inventorySlotPrefab);
+                    Destroy(slotPrefab.transform.GetChild(0).gameObject);
+                    slotPrefab.transform.SetParent(content.transform, false);
                 }
                 else
                 {
-                    GameObject slotUi = Instantiate(inventorySlotPrefab);
-                    slotUi.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = slots[i].icon;
-                    slotUi.transform.GetChild(0).gameObject.GetComponent<DraggableItem>().container = container;
-                    slotUi.transform.SetParent(content.transform, false);
+                    // on crée un slot
+                    GameObject slotPrefab = Instantiate(inventorySlotPrefab);
+
+                    slotPrefab.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = slots[i].icon;
+                    slotPrefab.transform.GetChild(0).gameObject.GetComponent<DraggableItem>().container = container;
+
+                    slotPrefab.AddComponent<SlotUI>();
+                    slotPrefab.GetComponent<SlotUI>().setId(slots[i].id);
+                    slotPrefab.GetComponent<SlotUI>().setNb(slots[i].count);
+                    slotPrefab.GetComponent<SlotUI>().setDescription(slots[i].description);
+                    
+                    slotPrefab.transform.SetParent(content.transform, false);
                 }
             }
         }
