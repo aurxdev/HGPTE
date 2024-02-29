@@ -54,4 +54,39 @@ public class Inventory{
         }
         lastItem=null;
     }
+
+    public void SwapItems(int index1, int index2)
+    {
+        if (index1 < 0 || index1 >= slots.Count || index2 < 0 || index2 >= slots.Count)
+        {
+            Debug.LogError("Index out of range");
+            return;
+        }
+
+        Slot temp = slots[index1];
+        slots[index1] = slots[index2];
+        slots[index2] = temp;
+
+        // on déclenche l'event
+        onInventoryChanged?.Invoke();
+    }
+
+
+
+    public void Remove(int index){
+        slots[index]=null;
+
+        // on declenche l'event
+        onInventoryChanged?.Invoke();
+    }
+
+    public void RemoveAll(){
+        for(int i=0;i<slots.Count;i++){
+            slots[i]=null;
+        }
+        
+        // on declenche l'event
+        onInventoryChanged?.Invoke();
+    }
+
 }

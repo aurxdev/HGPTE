@@ -21,6 +21,7 @@ public class InventoryUI : MonoBehaviour
     private GameObject inventoryInformations;
 
     // instance du joueur
+    [SerializeField]
     public Player player;
 
     void Update(){
@@ -52,15 +53,15 @@ public class InventoryUI : MonoBehaviour
                 {
                     // on crée un slot
                     GameObject slotPrefab = Instantiate(inventorySlotPrefab);
-
-                    slotPrefab.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = slots[i].icon;
-                    slotPrefab.transform.GetChild(0).gameObject.GetComponent<DraggableItem>().container = container;
-
-                    slotPrefab.AddComponent<SlotUI>();
-                    slotPrefab.GetComponent<SlotUI>().setId(slots[i].id);
-                    slotPrefab.GetComponent<SlotUI>().setNb(slots[i].count);
-                    slotPrefab.GetComponent<SlotUI>().setDescription(slots[i].description);
-                    
+                    GameObject slot = slotPrefab.transform.GetChild(0).gameObject;
+                    slot.GetComponent<Image>().sprite = slots[i].icon;
+                    slot.GetComponent<DraggableItem>().container = container;
+                    slot.GetComponent<DraggableItem>().inventoryInformations = inventoryInformations;
+                    slot.GetComponent<DraggableItem>().id = slots[i].id;
+                    slot.GetComponent<DraggableItem>().nb = slots[i].count;
+                    slot.GetComponent<DraggableItem>().description = slots[i].description;
+                    slot.GetComponent<DraggableItem>().iconImage = slots[i].icon;
+                    slot.GetComponent<DraggableItem>().nom = slots[i].name;
                     slotPrefab.transform.SetParent(content.transform, false);
                 }
             }

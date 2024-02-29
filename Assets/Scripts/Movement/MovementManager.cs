@@ -74,8 +74,8 @@ public class MovementManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Sprite to load " + sprites[0]);
-        Debug.Log("Sprite loaded " + GetComponentInChildren<SpriteRenderer>().sprite);
+        // Debug.Log("Sprite to load " + sprites[0]);
+        // Debug.Log("Sprite loaded " + GetComponentInChildren<SpriteRenderer>().sprite);
         GetComponentInChildren<SpriteRenderer>().sprite = sprites[0];
     }
 
