@@ -62,6 +62,7 @@ public class InventoryUI : MonoBehaviour
                     slot.GetComponent<DraggableItem>().description = slots[i].description;
                     slot.GetComponent<DraggableItem>().iconImage = slots[i].icon;
                     slot.GetComponent<DraggableItem>().nom = slots[i].name;
+                    slot.GetComponent<DraggableItem>().nbSlot = i;
                     slotPrefab.transform.SetParent(content.transform, false);
                 }
             }

@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InventorySlotUI : MonoBehaviour, IDropHandler
+public class InventoryBarVUI : MonoBehaviour, IDropHandler
 {
     [SerializeField]
     public Player player;
+
+    private void Start()
+    {
+        player = FindObjectOfType<Player>();
+    }
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -16,8 +21,9 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
             DraggableItem draggedItem = dropped.GetComponent<DraggableItem>();
             if(draggedItem != null){
                 draggedItem.parentAfterDrag = transform;
-                // Debug.Log(player.inventory.toString());
-                // player.inventory.SwapItems(draggedItem.id, transform.GetComponent<DraggableItem>().id);
+
+                Debug.Log(player.inventory.toString());
+                player.inventory.SwapItems(draggedItem.nbSlot, -1);
             }
         }
 
@@ -27,7 +33,11 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
             if(draggedItem != null){
                 existingItem.SetParent(draggedItem.parentAfterDrag);
                 draggedItem.parentAfterDrag = transform;
-                // player.inventory.SwapItems(draggedItem.id, existingItem.GetComponent<DraggableItem>().id);
+
+
+                // Debug.Log("existant: "+existingItem.GetComponent<DraggableItem>().nom);
+                // Debug.Log("dragged: "+draggedItem.nom);
+                player.inventory.SwapItems(existingItem.GetComponent<DraggableItem>().nbSlot,draggedItem.nbSlot);
             }
         }
     }

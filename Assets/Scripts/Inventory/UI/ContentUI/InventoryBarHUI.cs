@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class InventoryBarUI : MonoBehaviour
+public class InventoryBarHUI : MonoBehaviour
 {
     [SerializeField]
     public GameObject content;
@@ -10,13 +10,13 @@ public class InventoryBarUI : MonoBehaviour
     public Player player;
     void Start()
     {
-        player.inventory.onInventoryChanged += UpdateUI; // on ajoute l'event
+        player.inventory.onInventoryChangedBar += UpdateUI; // on ajoute l'event
         UpdateUI(); 
     }
 
     void OnDestroy()
     {
-        player.inventory.onInventoryChanged -= UpdateUI;
+        player.inventory.onInventoryChangedBar -= UpdateUI;
     }
 
         public void UpdateUI(){
@@ -29,7 +29,7 @@ public class InventoryBarUI : MonoBehaviour
             List <Slot> slots = player.inventory.slots;
             for (int i = 0; i < 6; i++)
             {
-                if (slots[i].type == ItemType.NONE)
+                if (slots[i].type == ItemType.NONE || slots[i] == null)
                 {
                     GameObject slotUi = Instantiate(inventorySlotPrefab);
                     slotUi.transform.GetChild(0).gameObject.SetActive(false);

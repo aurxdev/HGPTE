@@ -13,6 +13,9 @@ public class Inventory{
     // observer
     public delegate void OnInventoryChanged();
     public event OnInventoryChanged onInventoryChanged;
+    //
+    public delegate void OnInventoryChangedBar();
+    public event OnInventoryChangedBar onInventoryChangedBar;
 
     public Inventory(int size){
         for (int i = 0; i < size; i++){
@@ -23,12 +26,10 @@ public class Inventory{
     public string toString(){
         string msg="";
         for(int i=0; i<slots.Count;i++){
-            msg+=slots[i].name;
+            msg+= slots[i].count.ToString() + ' ' + slots[i].name+'\n';
         }
         return msg;
     }
-
-    //scriptable object
 
     public void Add(Collectable c){
         lastItem = c;
@@ -39,16 +40,18 @@ public class Inventory{
                 lastSlot=slot;
                 // on declenche l'event
                 onInventoryChanged?.Invoke();
+                onInventoryChangedBar?.Invoke();
                 return;
             }
         }
         // sinon si on met au prochain slot vide
         foreach(Slot slot in slots){
-            if (slot.type == ItemType.NONE){
+            if (slot.type == ItemType.NONE || slot == null){
                 slot.AddItem(c);
                 lastSlot=slot;
                 // on declenche l'event
                 onInventoryChanged?.Invoke();
+                onInventoryChangedBar?.Invoke();
                 return;
             }
         }
@@ -57,9 +60,30 @@ public class Inventory{
 
     public void SwapItems(int index1, int index2)
     {
+        if(index2 == -1)
+        {
+            // vérifie si un slot vide est disponible
+            Slot emptySlot = slots.Find(slot => slot.type == ItemType.NONE);
+            if (emptySlot == null)
+            {
+                Debug.LogError("Erreur swap: Pas de slot vide disponible");
+                return;
+            }
+
+            Slot tmp = new Slot(slots[index1].id, slots[index1].type, slots[index1].count, slots[index1].maxItems, slots[index1].icon, slots[index1].name, slots[index1].description);
+            Remove(index1);
+
+            emptySlot.MoveItem(tmp);
+            lastSlot = emptySlot;
+
+            // on déclenche l'event
+            onInventoryChangedBar?.Invoke();
+            return;
+        }
+
         if (index1 < 0 || index1 >= slots.Count || index2 < 0 || index2 >= slots.Count)
         {
-            Debug.LogError("Index out of range");
+            Debug.LogError("Erreur swap: Index invalide");
             return;
         }
 
@@ -68,25 +92,28 @@ public class Inventory{
         slots[index2] = temp;
 
         // on déclenche l'event
-        onInventoryChanged?.Invoke();
+        onInventoryChangedBar?.Invoke();
     }
 
-
-
     public void Remove(int index){
-        slots[index]=null;
+        slots[index].type=ItemType.NONE;
+        slots[index].count=0;
+        slots[index].icon=null;
+        slots[index].name="";
+        slots[index].id=0;
+        slots[index].description="";
 
         // on declenche l'event
-        onInventoryChanged?.Invoke();
+        onInventoryChangedBar?.Invoke();
     }
 
     public void RemoveAll(){
         for(int i=0;i<slots.Count;i++){
-            slots[i]=null;
+            Remove(i);
         }
         
         // on declenche l'event
-        onInventoryChanged?.Invoke();
+        onInventoryChangedBar?.Invoke();
     }
 
 }

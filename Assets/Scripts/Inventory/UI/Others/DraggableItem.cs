@@ -21,10 +21,13 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public string nom;
 
+    public int nbSlot;
+
 
     [HideInInspector]
     public Transform parentAfterDrag;
 
+    // informations panel
     public void ShowInformations(){
         inventoryInformations.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = iconImage;
         inventoryInformations.transform.GetChild(1).gameObject.GetComponent<Text>().text = nom;
