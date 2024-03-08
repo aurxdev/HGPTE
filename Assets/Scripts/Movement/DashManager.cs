@@ -86,7 +86,7 @@ namespace DashManager
         void Update()
         {
             MovementManager movement = GetComponent<MovementManager>();
-            if (Input.GetKeyDown(KeyCode.LeftControl) && !movement.IsOnAnimation())
+            if (Input.GetKeyDown(KeyCode.F) && !movement.IsOnAnimation())
             {
                 hasToDash = true;
             }
