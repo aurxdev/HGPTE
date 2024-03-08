@@ -28,7 +28,7 @@ public class InventoryUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab)){
             inventoryPanel.SetActive(!inventoryPanel.activeSelf); // on active ou desactive
             if(inventoryPanel.activeSelf) {
-                inventoryPanel.transform.LeanMoveLocalX(750, 0.3f).setEaseOutCubic(); // si on ouvre on slide
+                inventoryPanel.transform.LeanMoveLocalX(500, 0.3f).setEaseOutCubic(); // si on ouvre on slide
             } else {
                 inventoryPanel.transform.LeanMoveLocalX(inventoryPanel.transform.localPosition.x + 500, 0.1f).setEaseOutCubic(); // si on ferme on slide
             }

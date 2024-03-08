@@ -60,8 +60,12 @@ public class Inventory{
 
     public void SwapItems(int index1, int index2)
     {
+
         if(index2 == -1)
         {
+            Slot tmp = new Slot(slots[index1].id, slots[index1].type, slots[index1].count, slots[index1].maxItems, slots[index1].icon, slots[index1].name, slots[index1].description);
+            Remove(index1);
+            
             // vérifie si un slot vide est disponible
             Slot emptySlot = slots.Find(slot => slot.type == ItemType.NONE);
             if (emptySlot == null)
@@ -69,9 +73,6 @@ public class Inventory{
                 Debug.LogError("Erreur swap: Pas de slot vide disponible");
                 return;
             }
-
-            Slot tmp = new Slot(slots[index1].id, slots[index1].type, slots[index1].count, slots[index1].maxItems, slots[index1].icon, slots[index1].name, slots[index1].description);
-            Remove(index1);
 
             emptySlot.MoveItem(tmp);
             lastSlot = emptySlot;
@@ -81,11 +82,14 @@ public class Inventory{
             return;
         }
 
+        // vérifie si les index sont valides
         if (index1 < 0 || index1 >= slots.Count || index2 < 0 || index2 >= slots.Count)
         {
             Debug.LogError("Erreur swap: Index invalide");
             return;
         }
+
+        // sinon on swap
 
         Slot temp = slots[index1];
         slots[index1] = slots[index2];

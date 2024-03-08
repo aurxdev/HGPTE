@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     {
         inventory = new Inventory(maxInventory);
         SetHp(hp);
-        setStamina(stamina);
+        SetStamina(stamina);
     }
 
     public void SetHp(int nb)
@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
         else IsDead = true;
     }
 
-    public void setStamina(int nb)
+    public void SetStamina(int nb)
     {
         if (nb >= 0 && nb < this.maxStamina)
         {
