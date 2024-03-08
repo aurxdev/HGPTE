@@ -117,44 +117,28 @@ class Portal : MonoBehaviour
 
     IEnumerator TeleportationEffect()
     {
-        // Save original scale and camera position
-        Vector3 originalScale = playerTeleporting.transform.localScale;
         float originalCameraOrthographicSize = Camera.main.orthographicSize;
 
-        int originalSortingOrder = playerTeleporting.GetComponentInChildren<SpriteRenderer>().sortingOrder;
 
-        playerTeleporting.GetComponentInChildren<SpriteRenderer>().sortingOrder = 10;
+        SpriteRenderer spriteRenderer = playerTeleporting.GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer.enabled = false;
 
-        // Get the MovementManager and SpriteRenderer of the player
-        MovementManager movementManager = playerTeleporting.GetComponent<MovementManager>();
-
-        // Increase scale and move camera up
         for (float t = 0; t < 1; t += Time.deltaTime / timeToTeleport)
         {
             if (t < 0.5)
             {
-                playerTeleporting.transform.localScale = Vector3.Lerp(originalScale, originalScale * 3.5f, t);
                 Camera.main.orthographicSize = Mathf.Lerp(originalCameraOrthographicSize, originalCameraOrthographicSize * 3.5f, t);
-
-                // Rotate the player and change the sprite
-                movementManager.LastDirection = 'E'; // Change to the desired direction
-                movementManager.setSprite(MovementManager.idSpriteRight);
             }
             else
             {
-                playerTeleporting.transform.localScale = Vector3.Lerp(originalScale * 3.5f, originalScale, t);
                 Camera.main.orthographicSize = Mathf.Lerp(originalCameraOrthographicSize * 3.5f, originalCameraOrthographicSize, t);
-
-                movementManager.LastDirection = 'W';
-                movementManager.setSprite(MovementManager.idSpriteLeft);
             }
             yield return null;
         }
 
-        // Reset scale and camera position
-        playerTeleporting.transform.localScale = originalScale;
         Camera.main.orthographicSize = originalCameraOrthographicSize;
-        playerTeleporting.GetComponentInChildren<SpriteRenderer>().sortingOrder = originalSortingOrder;
+
+        spriteRenderer.enabled = true;
 
         playerTeleporting.GetComponent<MovementManager>().IsTeleporting = false;
         playerTeleporting.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;

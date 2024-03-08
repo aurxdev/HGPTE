@@ -74,9 +74,11 @@ public class MovementManager : MonoBehaviour
 
     void Update()
     {
-        // Debug.Log("Sprite to load " + sprites[0]);
-        // Debug.Log("Sprite loaded " + GetComponentInChildren<SpriteRenderer>().sprite);
-        GetComponentInChildren<SpriteRenderer>().sprite = sprites[0];
+        if (Input.GetKey(KeyCode.Z))
+        {
+            SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.sprite = sprites[5];
+            //Debug.Log("Z");
+        }
     }
-
 }

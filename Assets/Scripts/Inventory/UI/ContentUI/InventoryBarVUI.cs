@@ -22,7 +22,7 @@ public class InventoryBarVUI : MonoBehaviour, IDropHandler
             if(draggedItem != null){
                 draggedItem.parentAfterDrag = transform;
 
-                Debug.Log(player.inventory.toString());
+                //Debug.Log(player.inventory.toString());
                 player.inventory.SwapItems(draggedItem.nbSlot, -1);
             }
         }
