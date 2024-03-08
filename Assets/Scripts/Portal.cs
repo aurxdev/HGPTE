@@ -89,6 +89,31 @@ class Portal : MonoBehaviour
                 playerTeleporting.GetComponent<MovementManager>().IsTeleporting = true;
                 Rigidbody2D rb = playerTeleporting.GetComponent<Rigidbody2D>();
 
+                Animator animator = playerTeleporting.GetComponentInChildren<Animator>();
+
+                animator.SetBool("isMoving", true);
+                switch (otherPortal.GetComponent<Portal>().direction)
+                {
+                    case Direction.E:
+                        animator.SetFloat("vertical", 0);
+                        animator.SetFloat("horizontal", 1);
+                        break;
+                    case Direction.W:
+                        animator.SetFloat("vertical", 0);
+                        animator.SetFloat("horizontal", -1);
+                        break;
+                    case Direction.N:
+                        animator.SetFloat("vertical", 1);
+                        animator.SetFloat("horizontal", 0);
+                        break;
+                    case Direction.S:
+                        animator.SetFloat("vertical", -1);
+                        animator.SetFloat("horizontal", 0);
+                        break;
+                    default:
+                        break;
+                }
+
                 StartCoroutine(TeleportationEffect());
                 if (rb)
                 {
@@ -142,6 +167,10 @@ class Portal : MonoBehaviour
 
         playerTeleporting.GetComponent<MovementManager>().IsTeleporting = false;
         playerTeleporting.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
+        playerTeleporting.GetComponent<MovementManager>().LastDirection = otherPortal.GetComponent<Portal>().direction.ToString()[0];
+        playerTeleporting.GetComponentInChildren<Animator>().SetBool("isMoving", false);        
+        
         playerTeleporting = null;
     }
 

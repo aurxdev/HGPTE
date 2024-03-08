@@ -30,10 +30,6 @@ public class MovementManager : MonoBehaviour
         set
         {
             isTeleporting = value;
-            if (value && animator != null)
-            {
-                animator.SetBool("isMoving", false);
-            }
         }
     }
 
@@ -72,13 +68,4 @@ public class MovementManager : MonoBehaviour
         return IsDashing || IsTeleporting;
     }
 
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.Z))
-        {
-            SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-            spriteRenderer.sprite = sprites[5];
-            //Debug.Log("Z");
-        }
-    }
 }
