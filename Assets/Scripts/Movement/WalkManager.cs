@@ -87,8 +87,12 @@ public class WalkManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
             speed = runSpeed;
+            Animator visualAnimator = GetComponentInChildren<Animator>();
+            visualAnimator.speed = 1.35f;            
         } else if (Input.GetKeyUp(KeyCode.LeftShift)) {
             speed = walkSpeed;
+            Animator visualAnimator = GetComponentInChildren<Animator>();
+            visualAnimator.speed = 1f;  
         }
     }
 
