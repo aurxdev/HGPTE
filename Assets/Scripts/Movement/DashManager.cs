@@ -46,8 +46,33 @@ namespace DashManager
 
         
         private void Dash() {
+            visualAnimator.SetBool("isDashing", true);
+            
+            switch (movementManager.LastDirection)
+            {
+                case 'N':
+                    visualAnimator.SetFloat("vertical", 1);
+                    visualAnimator.SetFloat("horizontal", 0);
+                    break;
+                case 'S':
+                    visualAnimator.SetFloat("vertical", -1);
+                    visualAnimator.SetFloat("horizontal", 0);
+                    break;
+                case 'E':
+                    visualAnimator.SetFloat("vertical", 0);
+                    visualAnimator.SetFloat("horizontal", 1);
+                    break;
+                case 'W':
+                    visualAnimator.SetFloat("vertical", 0);
+                    visualAnimator.SetFloat("horizontal", -1);
+                    break;
+                default:
+                    break;
+            }
+
             hasToDash = false;
             Vector2 direction = Vector2.zero;
+            
             switch (movementManager.LastDirection)
             {
                 case 'N':
@@ -85,8 +110,7 @@ namespace DashManager
         // Update is called once per frame
         void Update()
         {
-            MovementManager movement = GetComponent<MovementManager>();
-            if (Input.GetKeyDown(KeyCode.F) && !movement.IsOnAnimation())
+            if (Input.GetKeyDown(KeyCode.F) && !movementManager.IsOnAnimation())
             {
                 hasToDash = true;
             }
@@ -100,6 +124,7 @@ namespace DashManager
                     rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
                     movementManager.IsDashing = false;
                     elapsedTime = 0f;
+                    visualAnimator.SetBool("isDashing", false);
                 }
             }
         }

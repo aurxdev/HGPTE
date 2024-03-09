@@ -22483,7 +22483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashDistance: 5
-  dashDuration: 0.1
+  dashDuration: 0.2
 --- !u!114 &1133905039
 MonoBehaviour:
   m_ObjectHideFlags: 0
