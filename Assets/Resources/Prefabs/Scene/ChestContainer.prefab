@@ -221,7 +221,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 705907c359fb8cc4b9680e02ffe52af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capacity: 0
+  capacity: 10
   slots: []
   distance: 0
-  chestUI: {fileID: 0}
+  chestUI: {fileID: 4650883489296226076, guid: 52ec8eb0e4d061a488654316c66c1eee, type: 3}
+  canvas: {fileID: 0}
+  inventorySlotPrefab: {fileID: 7659879866378672248, guid: 92cc2ef31e3c06d45a71d5572a97282c, type: 3}
+  content: {fileID: 0}

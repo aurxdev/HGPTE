@@ -10,7 +10,6 @@ public class Slot{
     public Sprite icon;
     public string name; 
     public int id;
-
     public string description;
 
     public Slot(){
@@ -33,6 +32,15 @@ public class Slot{
         return count <= maxItems;
     }
 
+    public void AddItem(int id, ItemType type, int count, Sprite icon, string name, string description){
+        this.id = id;
+        this.type = type;
+        this.icon = icon;
+        this.name = name;
+        this.description = description;
+        this.count++;
+    }
+
     public void AddItem(Collectable c){
         this.id=c.item.id;
         this.type = c.item.type;
@@ -41,7 +49,6 @@ public class Slot{
         this.description = c.item.description;
         this.count++;
     }
-
     public void MoveItem(Slot c){
         this.id=c.id;
         this.type = c.type;

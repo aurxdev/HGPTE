@@ -23,8 +23,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject staminaContainer;
     private bool IsDead {  get; set; }
+    public bool IsOpening { get; set; }
 
-
+    public Inventory chestInventory;
     private void Awake()
     {
         inventory = new Inventory(maxInventory);

@@ -58,6 +58,33 @@ public class Inventory{
         lastItem=null;
     }
 
+    public void Add(int index){
+        lastItem = null;
+        // on parcours une premiere fois l'inventaire pour trouver un slot si les 2 ont le meme ID
+        foreach(Slot slot in slots){
+            if (slot.id == slots[index].id && slot.CanAddItem()){
+                slot.AddItem(slots[index].id, slots[index].type, slots[index].count, slots[index].icon, slots[index].name, slots[index].description);
+                lastSlot=slot;
+                // on declenche l'event
+                onInventoryChanged?.Invoke();
+                onInventoryChangedBar?.Invoke();
+                return;
+            }
+        }
+        // sinon si on met au prochain slot vide
+        foreach(Slot slot in slots){
+            if (slot.type == ItemType.NONE || slot == null){
+                slot.AddItem(slots[index].id, slots[index].type, slots[index].count, slots[index].icon, slots[index].name, slots[index].description);
+                lastSlot=slot;
+                // on declenche l'event
+                onInventoryChanged?.Invoke();
+                onInventoryChangedBar?.Invoke();
+                return;
+            }
+        }
+    
+    }
+
     public void SwapItems(int index1, int index2)
     {
 
@@ -99,16 +126,35 @@ public class Inventory{
         onInventoryChangedBar?.Invoke();
     }
 
+    public void ResetSlot(Slot s){
+        s.type=ItemType.NONE;
+        s.count=0;
+        s.icon=null;
+        s.name="";
+        s.id=0;
+        s.description="";
+    }
+
+    public void Remove(Collectable c){
+        foreach(Slot slot in slots){
+            if (slot.id == c.item.id){
+                ResetSlot(slot);
+
+                lastSlot=slot;
+                // on declenche l'event
+                onInventoryChanged?.Invoke();
+                return;
+            }
+        }
+    }
+
+
+
     public void Remove(int index){
-        slots[index].type=ItemType.NONE;
-        slots[index].count=0;
-        slots[index].icon=null;
-        slots[index].name="";
-        slots[index].id=0;
-        slots[index].description="";
+        ResetSlot(slots[index]);
 
         // on declenche l'event
-        onInventoryChangedBar?.Invoke();
+        onInventoryChanged?.Invoke();
     }
 
     public void RemoveAll(){
@@ -117,7 +163,7 @@ public class Inventory{
         }
         
         // on declenche l'event
-        onInventoryChangedBar?.Invoke();
+        onInventoryChanged?.Invoke();
     }
 
 }

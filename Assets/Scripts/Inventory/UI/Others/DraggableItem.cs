@@ -12,18 +12,12 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public GameObject container;
     [SerializeField]
     public GameObject inventoryInformations;
-
     public int nb;
     public int id;
-
     public string description;
     public Sprite iconImage;
-
     public string nom;
-
     public int nbSlot;
-
-
     [HideInInspector]
     public Transform parentAfterDrag;
 
@@ -37,9 +31,19 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        ShowInformations();
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            ShowInformations();
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            Player player = FindObjectOfType<Player>();
+            if(player.IsOpening){
+                GameObject button = gameObject.transform.GetChild(0).gameObject;
+                button.SetActive(!button.activeSelf);
+            }
+        }
     }
-
     public void OnBeginDrag(PointerEventData eventData)
     {
         ShowInformations();
