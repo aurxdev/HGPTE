@@ -24,7 +24,9 @@ public class Inventory{
     }
 
     public Inventory(List<Slot> list){
-        slots = list;
+        for(int i=0; i<list.Count;i++){
+            slots.Add(list[i]);
+        }
     }
 
     public string toString(){
