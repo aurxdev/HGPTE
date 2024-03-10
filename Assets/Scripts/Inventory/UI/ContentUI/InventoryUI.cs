@@ -23,6 +23,8 @@ public class InventoryUI : MonoBehaviour
     // instance du joueur
     [SerializeField]
     public Player player;
+    [SerializeField]
+    private Sprite defaultIcon;
 
     void Start()
     {
@@ -45,7 +47,7 @@ public class InventoryUI : MonoBehaviour
         } else {
             inventoryPanel.transform.LeanMoveLocalX(inventoryPanel.transform.localPosition.x + 500, 0.1f).setEaseOutCubic(); // si on ferme on slide
         }
-        Utils.UpdateUI(!inventoryPanel.activeSelf, player, inventorySlotPrefab, content, canvas, inventoryInformations); // on update l'UI   
+        Utils.UpdateSlotsUI(player, inventorySlotPrefab, content, canvas, inventoryInformations, defaultIcon); // on update l'UI   
     }
 
     public void maskUI(){
@@ -54,6 +56,6 @@ public class InventoryUI : MonoBehaviour
     }
 
     public void OnInventoryChanged(){
-        Utils.UpdateSlotsUI(player, inventorySlotPrefab, content, canvas, inventoryInformations); // on update l'UI
+        Utils.UpdateSlotsUI(player, inventorySlotPrefab, content, canvas, inventoryInformations, defaultIcon); // on update l'UI
     }
 }

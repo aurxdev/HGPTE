@@ -8,6 +8,17 @@ using UnityEngine.UI;
 
 public class Utils : MonoBehaviour
 {
+
+
+        public static void ResetInformations(GameObject inventoryInformations, Sprite defaultIcon, Player player){
+            int nb = player.inventory.NumberOfItems();
+            int nbMax = player.inventory.slots.Count;
+
+            inventoryInformations.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = defaultIcon;
+            inventoryInformations.transform.GetChild(1).gameObject.GetComponent<Text>().text = "";
+            inventoryInformations.transform.GetChild(2).GetChild(0).gameObject.GetComponent<Text>().text = nb.ToString() + " / " + nbMax.ToString();
+            inventoryInformations.transform.GetChild(3).gameObject.GetComponent<Text>().text = "";
+        }
         public static void UpdateUI(Boolean show, Player player, GameObject inventorySlotPrefab, GameObject content, GameObject container, GameObject inventoryInformations){
         if (!show)
         {
@@ -47,7 +58,8 @@ public class Utils : MonoBehaviour
         }
     }
 
-    public static void UpdateSlotsUI(Player player, GameObject inventorySlotPrefab, GameObject content, GameObject container, GameObject inventoryInformations){
+    public static void UpdateSlotsUI(Player player, GameObject inventorySlotPrefab, GameObject content, GameObject container, GameObject inventoryInformations, Sprite defaultIcon){
+        ResetInformations(inventoryInformations, defaultIcon, player);
         if(content.transform.childCount > 0){
             foreach(Transform child in content.transform)
             {

@@ -23,12 +23,26 @@ public class Inventory{
         }
     }
 
+    public Inventory(List<Slot> list){
+        slots = list;
+    }
+
     public string toString(){
         string msg="";
         for(int i=0; i<slots.Count;i++){
             msg+= slots[i].count.ToString() + ' ' + slots[i].name+'\n';
         }
         return msg;
+    }
+
+    public int NumberOfItems(){
+        int count=0;
+        foreach(Slot slot in slots){
+            if (slot.type != ItemType.NONE){
+                count++;
+            }
+        }
+        return count;
     }
 
     public void Add(Collectable c){
@@ -58,12 +72,12 @@ public class Inventory{
         lastItem=null;
     }
 
-    public void Add(int index){
+    public void Add(List<Slot> playerSlots, int index){
         lastItem = null;
         // on parcours une premiere fois l'inventaire pour trouver un slot si les 2 ont le meme ID
-        foreach(Slot slot in slots){
-            if (slot.id == slots[index].id && slot.CanAddItem()){
-                slot.AddItem(slots[index].id, slots[index].type, slots[index].count, slots[index].icon, slots[index].name, slots[index].description);
+        foreach(Slot slot in playerSlots){
+            if (slot.id == playerSlots[index].id && slot.CanAddItem()){
+                slot.AddItem(playerSlots[index].id, playerSlots[index].type, playerSlots[index].count, playerSlots[index].icon, playerSlots[index].name, playerSlots[index].description);
                 lastSlot=slot;
                 // on declenche l'event
                 onInventoryChanged?.Invoke();
@@ -72,9 +86,9 @@ public class Inventory{
             }
         }
         // sinon si on met au prochain slot vide
-        foreach(Slot slot in slots){
+        foreach(Slot slot in playerSlots){
             if (slot.type == ItemType.NONE || slot == null){
-                slot.AddItem(slots[index].id, slots[index].type, slots[index].count, slots[index].icon, slots[index].name, slots[index].description);
+                slot.AddItem(playerSlots[index].id, playerSlots[index].type, playerSlots[index].count, playerSlots[index].icon, playerSlots[index].name, playerSlots[index].description);
                 lastSlot=slot;
                 // on declenche l'event
                 onInventoryChanged?.Invoke();
@@ -105,7 +119,7 @@ public class Inventory{
             lastSlot = emptySlot;
 
             // on déclenche l'event
-            onInventoryChangedBar?.Invoke();
+            onInventoryChanged?.Invoke();
             return;
         }
 
@@ -123,7 +137,7 @@ public class Inventory{
         slots[index2] = temp;
 
         // on déclenche l'event
-        onInventoryChangedBar?.Invoke();
+        onInventoryChanged?.Invoke();
     }
 
     public void ResetSlot(Slot s){

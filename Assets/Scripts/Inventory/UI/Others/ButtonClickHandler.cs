@@ -15,8 +15,9 @@ public class ButtonClickHandler : MonoBehaviour, IPointerClickHandler
             player = FindObjectOfType<Player>();
             if(informations != null && player != null && player.IsOpening){
                 DraggableItem dg = informations.GetComponent<DraggableItem>();
+                player.chestInventory.Add(player.inventory.slots, dg.nbSlot);
                 player.inventory.Remove(dg.nbSlot);
-                player.chestInventory.Add(dg.nbSlot);
+                // Destroy(informations.gameObject);
             }
         }
     }
