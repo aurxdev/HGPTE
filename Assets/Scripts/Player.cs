@@ -7,13 +7,19 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private int hp;
+    private float hp;
     [SerializeField]
-    private int maxHp;
+    private float maxHp;
     [SerializeField]
-    private int stamina;
+    private float healthRegenRate;
+
     [SerializeField]
-    public int maxStamina;
+    private float timeToChangeHealth;
+
+    [SerializeField]
+    private float stamina;
+    [SerializeField]
+    public float maxStamina;
     [SerializeField]
     public Inventory inventory;
     [SerializeField]
@@ -22,10 +28,11 @@ public class Player : MonoBehaviour
     private GameObject healthContainer;
     [SerializeField]
     private GameObject staminaContainer;
-    private bool IsDead {  get; set; }
+    public bool IsDead {  get; set; }
     public bool IsOpening { get; set; }
 
     public Inventory chestInventory;
+
     private void Awake()
     {
         inventory = new Inventory(maxInventory);
@@ -33,23 +40,86 @@ public class Player : MonoBehaviour
         SetStamina(stamina);
     }
 
-    public void SetHp(int nb)
+
+
+
+    public void SetHp(float nb)
     {
-        if (nb >= 0 && nb < this.maxHp){
-            this.hp = nb;
-            float var = (float)this.hp / (float)this.maxHp;
-            healthContainer.GetComponent<Image>().fillAmount = var;
+        if (nb <= 0) {
+            IsDead = true;
+            nb = 0;
+        } else if (nb > this.maxHp) {
+            nb = this.maxHp;
         }
-        else IsDead = true;
+
+        this.hp = nb;
+        float var = this.hp / this.maxHp;
+
+        healthContainer.GetComponent<Image>().fillAmount = var;
     }
 
-    public void SetStamina(int nb)
+    public float GetHp()
     {
-        if (nb >= 0 && nb < this.maxStamina)
+        return this.hp;
+    }
+
+
+
+    public void RemoveHp(float nb)
+    {
+        SetHp(this.hp - nb);
+    }
+
+    public void AddHp(float nb)
+    {
+        SetHp(this.hp + nb);
+    }
+
+
+
+
+
+
+    public void SetStamina(float nb)
+    {
+        if (nb <= 0) {
+            nb = 0;
+        } else if (nb > this.maxStamina) {
+            nb = this.maxStamina;
+        }
+
+        this.stamina = nb;
+        float var = this.stamina / this.maxStamina;
+
+        staminaContainer.GetComponent<Image>().fillAmount = var;   
+    }
+
+    public float GetStamina()
+    {
+        return this.stamina;
+    }
+
+    public void RemoveStamina(float nb)
+    {
+        SetStamina(this.stamina - nb);
+    }
+
+    public void AddStamina(float nb)
+    {
+        SetStamina(this.stamina + nb);
+    }
+
+
+    void Update()
+    {
+        if (this.hp < this.maxHp && !IsDead) 
         {
-            this.hp = nb;
-            float var = (float)this.hp / (float)this.maxStamina;
-            staminaContainer.GetComponent<Image>().fillAmount = var;
+            AddHp(healthRegenRate * Time.deltaTime);
+        }
+
+        if (this.stamina < this.maxStamina) 
+        {
+            AddStamina(5 * Time.deltaTime);
         }
     }
 

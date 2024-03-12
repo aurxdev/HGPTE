@@ -85,12 +85,15 @@ public class WalkManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+        Player player = GetComponent<Player>();
+
+        if (Input.GetKey(KeyCode.LeftShift) && player.GetStamina() > 1 ){
+            player.RemoveStamina(15 * Time.deltaTime);
             speed = runSpeed;
-            GetComponentInChildren<Animator>().speed = 1.35f * (runSpeed / 5);            
-        } else if (Input.GetKeyUp(KeyCode.LeftShift)) {
+            GetComponentInChildren<Animator>().speed = 1.35f * (runSpeed / 5);     
+        } else {
             speed = walkSpeed;
-            GetComponentInChildren<Animator>().speed = 1f;  
+            GetComponentInChildren<Animator>().speed = 1f;
         }
     }
 

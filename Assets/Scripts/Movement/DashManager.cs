@@ -110,9 +110,11 @@ namespace DashManager
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F) && !movementManager.IsOnAnimation())
+            Player player = GetComponent<Player>();
+            if (Input.GetKeyDown(KeyCode.F) && !movementManager.IsOnAnimation() && player.GetStamina() >= 40)
             {
                 hasToDash = true;
+                player.RemoveStamina(40);
             }
             
             if (elapsedTime > 0)
