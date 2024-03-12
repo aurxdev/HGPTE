@@ -42,13 +42,17 @@ public class ChestContainer : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         InventoryUI inventoryUI = GameObject.FindObjectOfType<InventoryUI>();
-        GameObject chestUIClone = GameObject.Find("ChestUI(Clone)");
-        if(isOpen && chestUIClone != null){
-            Destroy(chestUIClone);
-            isOpen = false;
-            player.IsOpening = false;
-            player.chestInventory = null;
-            if (inventoryUI != null)inventoryUI.maskUI();
+        if (isOpen)
+        {
+            GameObject chestUIClone = GameObject.Find("ChestUI(Clone)");
+            if (chestUIClone != null)
+            {
+                Destroy(chestUIClone);
+                isOpen = false;
+                player.IsOpening = false;
+                player.chestInventory = null;
+                if (inventoryUI != null) inventoryUI.maskUI();
+            }
         }
         isTrigger=false;
     }
