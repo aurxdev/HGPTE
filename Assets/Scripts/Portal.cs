@@ -178,7 +178,10 @@ class Portal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        player = other.gameObject;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            player = other.gameObject;
+        }
     }
 
     private void OnTriggerExit2D()
