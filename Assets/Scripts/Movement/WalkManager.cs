@@ -24,7 +24,6 @@ public class WalkManager : MonoBehaviour
     {
         if (direction != Vector2.zero && direction.magnitude > 0)
         {
-            animator.SetBool("isMoving", true);
             animator.SetFloat("vertical", direction.y);
             animator.SetFloat("horizontal", direction.x);
         }
@@ -64,11 +63,12 @@ public class WalkManager : MonoBehaviour
         }
 
         if (horizontal == 0 && vertical == 0) {
-            animator.SetBool("isMoving", false);
             rigidbody2D.velocity = Vector2.zero;
+            movement.IsWalking = false;
             return;
         }
 
+        movement.IsWalking = true;
         Vector2 direction = new Vector2(horizontal, vertical);
         AnimateMovement(direction, animator);
         rigidbody2D.velocity = new Vector2(horizontal * speed * Time.timeScale, vertical* speed * Time.timeScale);
@@ -86,14 +86,17 @@ public class WalkManager : MonoBehaviour
     void Update()
     {
         Player player = GetComponent<Player>();
+        MovementManager movementManager = GetComponent<MovementManager>();
 
-        if (Input.GetKey(KeyCode.LeftShift) && player.GetStamina() > 1 ){
+        if (Input.GetKey(KeyCode.LeftShift) && player.GetStamina() > 1 && movementManager.IsWalking){
             player.RemoveStamina(15 * Time.deltaTime);
             speed = runSpeed;
             GetComponentInChildren<Animator>().speed = 1.35f * (runSpeed / 5);     
+            movementManager.IsRunning = true;
         } else {
             speed = walkSpeed;
             GetComponentInChildren<Animator>().speed = 1f;
+            movementManager.IsRunning = false;
         }
     }
 

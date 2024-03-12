@@ -112,14 +112,15 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        MovementManager movementManager = GetComponent<MovementManager>();
         if (this.hp < this.maxHp && !IsDead) 
         {
             AddHp(healthRegenRate * Time.deltaTime);
         }
 
-        if (this.stamina < this.maxStamina) 
+        if (this.stamina < this.maxStamina && !movementManager.IsOnAnimation() && !movementManager.IsRunning)
         {
-            AddStamina(5 * Time.deltaTime);
+            AddStamina(10 * Time.deltaTime);
         }
     }
 

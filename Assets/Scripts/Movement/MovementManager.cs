@@ -14,8 +14,6 @@ public class MovementManager : MonoBehaviour
 
     private bool isTeleporting = false;
 
-    private Sprite[] sprites;
-
     public static readonly int idSpriteDown = 0;
 
     public static readonly int idSpriteUp = 19;
@@ -41,28 +39,53 @@ public class MovementManager : MonoBehaviour
         set
         {
             isDashing = value;
-            if (value && animator != null)
+            if (animator != null)
             {
-                animator.SetBool("isMoving", false);
+                if (value)
+                {
+                    animator.SetBool("isDashing", true);
+                }
+                else
+                {
+                    animator.SetBool("isDashing", false);
+                }
             }
         }
     }
 
-    void Awake()
+
+    private bool isWalking = false;
+    public bool IsWalking
     {
-        animator = GetComponentInChildren<Animator>();
-        sprites = Resources.LoadAll<Sprite>("Graphics/Images/Sprites/Character/character");
-    }
-
-
-    public void setSprite(int id) {
-        if (id >= 0 && id < sprites.Length) {
-            GetComponentInChildren<SpriteRenderer>().sprite = sprites[id];
+        get => isWalking;
+        set {
+            isWalking = value;
+            if (animator != null)
+            {
+                if (value)
+                {
+                    animator.SetBool("isMoving", true);
+                }
+                else
+                {
+                    animator.SetBool("isMoving", false);
+                }
+            }
         }
     }
 
-    
+    private bool isRunning = false;
+    public bool IsRunning {get; set;}
 
+
+    void Awake()
+    {
+        animator = GetComponentInChildren<Animator>();
+        animator.SetFloat("vertical", -1);
+        animator.SetFloat("horizontal", 0);
+    }
+
+    
     public bool IsOnAnimation()
     {
         return IsDashing || IsTeleporting;
