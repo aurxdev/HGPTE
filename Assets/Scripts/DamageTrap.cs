@@ -9,7 +9,7 @@ public class DamageTrap : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Player>().RemoveHp(20);
+            other.GetComponent<Player>().RemoveHp(20, true);
         }
     }
 }

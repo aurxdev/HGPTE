@@ -10,6 +10,10 @@ public class WalkManager : MonoBehaviour
     [SerializeField]
     private float runSpeed = 5;
 
+    [SerializeField]
+    private float runStaminaCost = 15;
+
+
     private float speed;
 
     private float Abs(float value) {
@@ -72,7 +76,6 @@ public class WalkManager : MonoBehaviour
         Vector2 direction = new Vector2(horizontal, vertical);
         AnimateMovement(direction, animator);
         rigidbody2D.velocity = new Vector2(horizontal * speed * Time.timeScale, vertical* speed * Time.timeScale);
-
     }
 
 
@@ -89,7 +92,7 @@ public class WalkManager : MonoBehaviour
         MovementManager movementManager = GetComponent<MovementManager>();
 
         if (Input.GetKey(KeyCode.LeftShift) && player.GetStamina() > 1 && movementManager.IsWalking){
-            player.RemoveStamina(15 * Time.deltaTime);
+            player.RemoveStamina(runStaminaCost * Time.deltaTime);
             speed = runSpeed;
             GetComponentInChildren<Animator>().speed = 1.35f * (runSpeed / 5);     
             movementManager.IsRunning = true;

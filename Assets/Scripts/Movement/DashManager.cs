@@ -11,6 +11,10 @@ namespace DashManager
         private float dashDistance = 2.5f; // Distance covered by the player character during a dash
         [SerializeField]
         private float dashDuration = 0.1f; // Duration of the dash animation in seconds
+
+        [SerializeField]
+        private float dashStaminaCost = 40; // Stamina cost of the dash
+
         private float elapsedTime; // Time elapsed since the start of the dash
         private new Rigidbody2D rigidbody2D;
         private MovementManager movementManager;
@@ -63,7 +67,7 @@ namespace DashManager
 
             rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
             Player player = GetComponent<Player>();
-            player.RemoveStamina(40);
+            player.RemoveStamina(dashStaminaCost);
             movementManager.IsDashing = true;
 
             if (direction != Vector2.zero)
@@ -79,7 +83,7 @@ namespace DashManager
         void Update()
         {
             Player player = GetComponent<Player>();
-            if (Input.GetKeyDown(KeyCode.F) && !movementManager.IsOnAnimation() && player.GetStamina() >= 40)
+            if (Input.GetKeyDown(KeyCode.F) && !movementManager.IsOnAnimation() && player.GetStamina() >= dashStaminaCost)
             {
                 Dash();
             }

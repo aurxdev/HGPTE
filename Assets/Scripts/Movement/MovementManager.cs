@@ -74,7 +74,6 @@ public class MovementManager : MonoBehaviour
         }
     }
 
-    private bool isRunning = false;
     public bool IsRunning {get; set;}
 
 
