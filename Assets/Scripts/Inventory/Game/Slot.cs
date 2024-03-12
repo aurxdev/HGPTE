@@ -35,10 +35,10 @@ public class Slot{
     public void AddItem(int id, ItemType type, int count, Sprite icon, string name, string description){
         this.id = id;
         this.type = type;
+        this.count=count;
         this.icon = icon;
         this.name = name;
         this.description = description;
-        this.count++;
     }
 
     public void AddItem(Collectable c){

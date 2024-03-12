@@ -28,6 +28,7 @@ public class ChestContainer : MonoBehaviour
     void Start(){
         chestSlots = new Inventory(capacity); // on initialise l'inventaire
         player = GameObject.FindObjectOfType<Player>();
+        player.chestInventory = chestSlots;
         player.chestInventory.onInventoryChanged += ShowChestSlotsUI;
     }
 
@@ -140,6 +141,7 @@ public class ChestContainer : MonoBehaviour
                 slotPrefab.transform.GetChild(0).gameObject.SetActive(false);
                 slotPrefab.transform.GetChild(1).gameObject.SetActive(false);
                 slotPrefab.transform.GetChild(2).gameObject.SetActive(false);
+                slotPrefab.transform.GetChild(3).gameObject.SetActive(false);
                 slotPrefab.transform.SetParent(content.transform, false);
             }
             else
@@ -148,6 +150,8 @@ public class ChestContainer : MonoBehaviour
                 slotPrefab.transform.GetChild(0).gameObject.GetComponent<Text>().text = slots[i].name;
                 slotPrefab.transform.GetChild(1).gameObject.GetComponent<Text>().text = slots[i].count.ToString();
                 slotPrefab.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = slots[i].icon;
+                slotPrefab.AddComponent<DraggableItemChest>();
+                slotPrefab.GetComponent<DraggableItemChest>().nbSlot = i;
                 slotPrefab.transform.SetParent(content.transform, false);
             }
         }

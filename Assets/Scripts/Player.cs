@@ -184,7 +184,6 @@ public class Player : MonoBehaviour
         if (slotNumber != -1)
         {
             selectedSlot = slotNumber;
-            Debug.Log(slotNumber);
             onSlotChanged?.Invoke();
         }
         if (this.hp < this.maxHp && !IsDead) 

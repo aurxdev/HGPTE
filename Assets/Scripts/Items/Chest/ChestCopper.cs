@@ -16,8 +16,8 @@ public class ChestCopper : MonoBehaviour
     private bool isTrigger;
 
     private bool isOpen=false;
-
-    public static int MAX_ITEM = 4;
+    [SerializeField]
+    public int maxItem = 4;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -52,7 +52,7 @@ public class ChestCopper : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && isTrigger && !isOpen)
         {
-            int nbItem = Random.Range(1, MAX_ITEM);
+            int nbItem = Random.Range(1, maxItem);
             for (int i = 0; i < nbItem; i++)
             {
                 SpawnItem();
