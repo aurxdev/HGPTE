@@ -16048,7 +16048,7 @@ GameObject:
   - component: {fileID: 575407358}
   - component: {fileID: 575407357}
   - component: {fileID: 575407356}
-  - component: {fileID: 575407355}
+  - component: {fileID: 575407359}
   m_Layer: 5
   m_Name: RecoltedItemBar
   m_TagString: Untagged
@@ -16073,21 +16073,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 150, y: -600.17}
+  m_AnchoredPosition: {x: 150, y: -727.9}
   m_SizeDelta: {x: 300, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &575407355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575407353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 739bcdc1a251faf4798a04f3107f21ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &575407356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16156,6 +16144,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575407353}
   m_CullTransparentMesh: 1
+--- !u!114 &575407359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575407353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d3646ba7a38fddee82270ff50074e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: {fileID: 2115713653}
+  inventorySlotPrefab: {fileID: 7150399812615856790, guid: dd8cf2bec11b6ae4bb625cdb98478a27, type: 3}
+  player: {fileID: 1133905037}
 --- !u!1 &586614659
 GameObject:
   m_ObjectHideFlags: 0
@@ -75890,7 +75893,11 @@ PrefabInstance:
     - target: {fileID: 5051178487800171958, guid: 95112dfd97b3b0643a4cc62dbecf1ffc, type: 3}
       propertyPath: inventorySlotPrefab
       value: 
-      objectReference: {fileID: 7659879866378672248, guid: 92cc2ef31e3c06d45a71d5572a97282c, type: 3}
+      objectReference: {fileID: 7659879866378672248, guid: dcdf60e035d7e35459a7bb9b3477cffa, type: 3}
+    - target: {fileID: 5051178487800171958, guid: 95112dfd97b3b0643a4cc62dbecf1ffc, type: 3}
+      propertyPath: inventoryInformations
+      value: 
+      objectReference: {fileID: 850920284}
     - target: {fileID: 8413114972430063957, guid: 95112dfd97b3b0643a4cc62dbecf1ffc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.0593746

@@ -75,26 +75,21 @@ public class Inventory{
     }
 
     public void Add(List<Slot> playerSlots, int index){
-        lastItem = null;
         // on parcours une premiere fois l'inventaire pour trouver un slot si les 2 ont le meme ID
-        foreach(Slot slot in playerSlots){
+        foreach(Slot slot in slots){
             if (slot.id == playerSlots[index].id && slot.CanAddItem()){
                 slot.AddItem(playerSlots[index].id, playerSlots[index].type, playerSlots[index].count, playerSlots[index].icon, playerSlots[index].name, playerSlots[index].description);
-                lastSlot=slot;
                 // on declenche l'event
                 onInventoryChanged?.Invoke();
-                onInventoryChangedBar?.Invoke();
                 return;
             }
         }
         // sinon si on met au prochain slot vide
-        foreach(Slot slot in playerSlots){
+        foreach(Slot slot in slots){
             if (slot.type == ItemType.NONE || slot == null){
                 slot.AddItem(playerSlots[index].id, playerSlots[index].type, playerSlots[index].count, playerSlots[index].icon, playerSlots[index].name, playerSlots[index].description);
-                lastSlot=slot;
                 // on declenche l'event
                 onInventoryChanged?.Invoke();
-                onInventoryChangedBar?.Invoke();
                 return;
             }
         }

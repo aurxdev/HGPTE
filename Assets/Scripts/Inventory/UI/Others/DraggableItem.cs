@@ -40,7 +40,8 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             Player player = FindObjectOfType<Player>();
             if(player.IsOpening){
                 GameObject button = gameObject.transform.GetChild(0).gameObject;
-                button.SetActive(!button.activeSelf);
+                if(button.activeSelf)button.SetActive(false);
+                else button.SetActive(true);
             }
         }
     }
