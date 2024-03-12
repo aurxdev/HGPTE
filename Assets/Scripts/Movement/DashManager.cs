@@ -9,29 +9,23 @@ namespace DashManager
     {
         [SerializeField]
         private float dashDistance = 2.5f; // Distance covered by the player character during a dash
-
         [SerializeField]
         private float dashDuration = 0.1f; // Duration of the dash animation in seconds
 
+        [SerializeField]
+        private float dashStaminaCost = 40; // Stamina cost of the dash
+
         private float elapsedTime; // Time elapsed since the start of the dash
-
-        private Animator visualAnimator;
-
         private new Rigidbody2D rigidbody2D;
-
         private MovementManager movementManager;
-
-        private bool hasToDash;
 
         
 
         void Awake()
         {
             elapsedTime = 0f;
-            visualAnimator = GetComponentInChildren<Animator>();
             rigidbody2D = GetComponent<Rigidbody2D>();
             movementManager = GetComponent<MovementManager>();
-            hasToDash = false;
         }
 
 
@@ -46,33 +40,8 @@ namespace DashManager
 
         
         private void Dash() {
-            visualAnimator.SetBool("isDashing", true);
-            
-            switch (movementManager.LastDirection)
-            {
-                case 'N':
-                    visualAnimator.SetFloat("vertical", 1);
-                    visualAnimator.SetFloat("horizontal", 0);
-                    break;
-                case 'S':
-                    visualAnimator.SetFloat("vertical", -1);
-                    visualAnimator.SetFloat("horizontal", 0);
-                    break;
-                case 'E':
-                    visualAnimator.SetFloat("vertical", 0);
-                    visualAnimator.SetFloat("horizontal", 1);
-                    break;
-                case 'W':
-                    visualAnimator.SetFloat("vertical", 0);
-                    visualAnimator.SetFloat("horizontal", -1);
-                    break;
-                default:
-                    break;
-            }
-
-            hasToDash = false;
             Vector2 direction = Vector2.zero;
-            
+
             switch (movementManager.LastDirection)
             {
                 case 'N':
@@ -91,11 +60,14 @@ namespace DashManager
                     break;
             }
 
-            if (CanDash(direction))
+            if (!CanDash(direction))
             {
-                rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+                return;
             }
 
+            rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+            Player player = GetComponent<Player>();
+            player.RemoveStamina(dashStaminaCost);
             movementManager.IsDashing = true;
 
             if (direction != Vector2.zero)
@@ -111,10 +83,9 @@ namespace DashManager
         void Update()
         {
             Player player = GetComponent<Player>();
-            if (Input.GetKeyDown(KeyCode.F) && !movementManager.IsOnAnimation() && player.GetStamina() >= 40)
+            if (Input.GetKeyDown(KeyCode.F) && !movementManager.IsOnAnimation() && player.GetStamina() >= dashStaminaCost)
             {
-                hasToDash = true;
-                player.RemoveStamina(40);
+                Dash();
             }
             
             if (elapsedTime > 0)
@@ -126,18 +97,8 @@ namespace DashManager
                     rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
                     movementManager.IsDashing = false;
                     elapsedTime = 0f;
-                    visualAnimator.SetBool("isDashing", false);
                 }
             }
-        }
-        
-
-        void FixedUpdate()
-        {
-            if (hasToDash)
-            {
-                Dash();
-            }    
         }
     }
 }

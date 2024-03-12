@@ -18,7 +18,6 @@ public class Collectable : MonoBehaviour
         if (hit != null && hit.gameObject.tag != "Collectible")
         {
             player.inventory.Add(this);
-            player.SetHp(20);
             Destroy(gameObject);
         }
         gameObject.GetComponent<SpriteRenderer>().sprite = item.imageMap;

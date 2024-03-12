@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,9 @@ public class Player : MonoBehaviour
     private float stamina;
     [SerializeField]
     public float maxStamina;
+
+    [SerializeField]
+    private float staminaRegenRate;
     [SerializeField]
     public Inventory inventory;
     [SerializeField]
@@ -36,14 +40,25 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         inventory = new Inventory(maxInventory);
-        SetHp(hp);
+        SetHp(hp, false);
         SetStamina(stamina);
     }
 
+    private IEnumerator AnimateBarChange(Image bar, float startValue, float endValue, float duration)
+    {
+        float time = 0;
+        while (time < duration)
+        {
+            Debug.Log("time: " + time);
+            bar.fillAmount = Mathf.Lerp(startValue, endValue, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        bar.fillAmount = endValue;
+    }
 
 
-
-    public void SetHp(float nb)
+    public void SetHp(float nb, bool animate)
     {
         if (nb <= 0) {
             IsDead = true;
@@ -52,10 +67,19 @@ public class Player : MonoBehaviour
             nb = this.maxHp;
         }
 
+        float startValue = this.hp / this.maxHp;
         this.hp = nb;
         float var = this.hp / this.maxHp;
 
-        healthContainer.GetComponent<Image>().fillAmount = var;
+        if(!animate)
+        {
+            healthContainer.GetComponent<Image>().fillAmount = var;
+        }
+        else
+        {
+            StartCoroutine(AnimateBarChange(healthContainer.GetComponent<Image>(), startValue, var, timeToChangeHealth));
+        }
+
     }
 
     public float GetHp()
@@ -65,17 +89,16 @@ public class Player : MonoBehaviour
 
 
 
-    public void RemoveHp(float nb)
+    public void RemoveHp(float nb, bool animate)
     {
-        SetHp(this.hp - nb);
-    }
-
-    public void AddHp(float nb)
-    {
-        SetHp(this.hp + nb);
+        SetHp(this.hp - nb, animate);
     }
 
 
+    public void AddHp(float nb, bool animate)
+    {
+        SetHp(this.hp + nb, animate);
+    }
 
 
 
@@ -112,14 +135,15 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        MovementManager movementManager = GetComponent<MovementManager>();
         if (this.hp < this.maxHp && !IsDead) 
         {
-            AddHp(healthRegenRate * Time.deltaTime);
+            AddHp(healthRegenRate * Time.deltaTime, false);
         }
 
-        if (this.stamina < this.maxStamina) 
+        if (this.stamina < this.maxStamina && !movementManager.IsOnAnimation() && !movementManager.IsRunning)
         {
-            AddStamina(5 * Time.deltaTime);
+            AddStamina(staminaRegenRate * Time.deltaTime);
         }
     }
 
