@@ -20,7 +20,6 @@ public class ChestContainer : MonoBehaviour
     private GameObject canvas;
     [SerializeField]
     private GameObject inventorySlotPrefab;
-
     private bool isTrigger;
     private bool isOpen;
     private Player player;
@@ -28,19 +27,24 @@ public class ChestContainer : MonoBehaviour
 
     void Start(){
         chestSlots = new Inventory(capacity); // on initialise l'inventaire
-        player.inventory.onInventoryChanged += ShowChestSlotsUI;
+        player.chestInventory.onInventoryChanged += ShowChest;
     }
 
-    private void OnRectTransformRemoved()
+    void onDestroy()
     {
-        player.inventory.onInventoryChanged -= ShowChestSlotsUI;
+        player.chestInventory.onInventoryChanged -= ShowChestSlotsUI;
+    }
+
+    private void ChestInventory_onInventoryChanged()
+    {
+        throw new System.NotImplementedException();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        player = collision.GetComponent<Player>();
-        if (player)
+        if (collision.CompareTag("Player"))
         {
+            player = collision.GetComponent<Player>();
             isTrigger = true;
             isOpen=false;
         }
@@ -79,6 +83,12 @@ public class ChestContainer : MonoBehaviour
         }
     }
 
+    public void ShowChest()
+    {
+        InventoryUI inventoryUI = GameObject.FindObjectOfType<InventoryUI>();
+        ShowChestUI(inventoryUI);
+    }
+
     public void ShowChestUI(InventoryUI inventoryUI)
     {
         chestPrefab = Instantiate(chestUI);
@@ -105,6 +115,7 @@ public class ChestContainer : MonoBehaviour
 
     public void ShowChestSlotsUI()
     {
+        if (!isOpen) return;
         GameObject slotPrefab;
         GameObject content = chestPrefab.transform.GetChild(0).GetChild(0).gameObject;
         List<Slot> slots = chestSlots.slots;
@@ -119,7 +130,7 @@ public class ChestContainer : MonoBehaviour
         }
         for (int i = 0; i < slots.Count; i++)
         {
-            if (slots[i].type == ItemType.NONE || slots[i] == null)
+            if (slots[i].type == ItemType.NONE)
             {
                 slotPrefab = Instantiate(inventorySlotPrefab);
                 slotPrefab.transform.GetChild(0).gameObject.SetActive(false);
