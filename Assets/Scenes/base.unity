@@ -22006,6 +22006,73 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2877889902504481670, guid: 1b8fb848f91e1b3359d927b4b20e55f4, type: 3}
   m_PrefabInstance: {fileID: 1991631497}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1098879496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1098879497}
+  - component: {fileID: 1098879498}
+  m_Layer: 0
+  m_Name: Detector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1098879497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098879496}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1133905033}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1098879498
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098879496}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.08329821, y: -0.13823676}
+  serializedVersion: 2
+  m_Radius: 0.38873744
 --- !u!1 &1099611906
 GameObject:
   m_ObjectHideFlags: 0
@@ -22473,6 +22540,7 @@ Transform:
   m_Children:
   - {fileID: 1651144814}
   - {fileID: 1304438758}
+  - {fileID: 1098879497}
   m_Father: {fileID: 2100079945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1133905035
@@ -22517,9 +22585,11 @@ MonoBehaviour:
   hp: 100
   maxHp: 100
   healthRegenRate: 2
-  timeToChangeHealth: 1
+  timeToChangeHealth: 0.5
   stamina: 200
   maxStamina: 200
+  staminaRegenRate: 10
+  timeToChangeStamina: 0.35
   inventory:
     slots: []
     lastItem: {fileID: 0}
@@ -22559,6 +22629,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashDistance: 5
   dashDuration: 0.2
+  dashStaminaCost: 40
 --- !u!114 &1133905039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22573,6 +22644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 2
   runSpeed: 5
+  runStaminaCost: 15
 --- !u!114 &1133905040
 MonoBehaviour:
   m_ObjectHideFlags: 0
