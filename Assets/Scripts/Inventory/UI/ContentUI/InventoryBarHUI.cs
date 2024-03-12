@@ -5,21 +5,27 @@ using UnityEngine.UI;
 public class InventoryBarHUI : MonoBehaviour
 {
     [SerializeField]
+    public Color selectedColor;
+    [SerializeField]
     public GameObject content;
     public GameObject inventorySlotPrefab;
     public Player player;
+
     void Start()
     {
         player.inventory.onInventoryChanged += UpdateUI; // on ajoute l'event
+        player.onSlotChanged += UpdateUI;
         UpdateUI(); 
     }
 
     void OnDestroy()
     {
         player.inventory.onInventoryChanged -= UpdateUI;
+        player.onSlotChanged -= UpdateUI;
     }
 
     public void UpdateUI(){
+        GameObject slotPrefab;
         if(content.transform.childCount > 0){
             foreach(Transform child in content.transform)
             {
@@ -29,21 +35,23 @@ public class InventoryBarHUI : MonoBehaviour
         List <Slot> slots = player.inventory.slots;
         for (int i = 0; i < 6; i++)
         {
+            slotPrefab = Instantiate(inventorySlotPrefab);
             if (slots[i].type == ItemType.NONE || slots[i] == null)
             {
-                GameObject slotUi = Instantiate(inventorySlotPrefab);
-                slotUi.transform.GetChild(0).gameObject.SetActive(false);
-                slotUi.transform.GetChild(1).gameObject.SetActive(false);
-                slotUi.transform.GetChild(2).gameObject.SetActive(false);
-                slotUi.transform.SetParent(content.transform, false);
+                slotPrefab.transform.GetChild(0).gameObject.SetActive(false);
+                slotPrefab.transform.GetChild(1).gameObject.SetActive(false);
+                slotPrefab.transform.GetChild(2).gameObject.SetActive(false);
+                slotPrefab.transform.SetParent(content.transform, false);
             }
             else
             {
-                GameObject slotUi = Instantiate(inventorySlotPrefab);
-                slotUi.transform.GetChild(0).gameObject.GetComponent<Text>().text = slots[i].name;
-                slotUi.transform.GetChild(1).gameObject.GetComponent<Text>().text = slots[i].count.ToString();
-                slotUi.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = slots[i].icon;
-                slotUi.transform.SetParent(content.transform, false);
+                slotPrefab.transform.GetChild(0).gameObject.GetComponent<Text>().text = slots[i].name;
+                slotPrefab.transform.GetChild(1).gameObject.GetComponent<Text>().text = slots[i].count.ToString();
+                slotPrefab.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = slots[i].icon;
+                slotPrefab.transform.SetParent(content.transform, false);
+            }
+            if(player.selectedSlot == i){
+                slotPrefab.GetComponent<Image>().color = selectedColor;
             }
         }     
     }

@@ -27,10 +27,11 @@ public class ChestContainer : MonoBehaviour
 
     void Start(){
         chestSlots = new Inventory(capacity); // on initialise l'inventaire
-        player.chestInventory.onInventoryChanged += ShowChest;
+        player = GameObject.FindObjectOfType<Player>();
+        player.chestInventory.onInventoryChanged += ShowChestSlotsUI;
     }
 
-    void onDestroy()
+    void Destroy()
     {
         player.chestInventory.onInventoryChanged -= ShowChestSlotsUI;
     }
@@ -76,8 +77,11 @@ public class ChestContainer : MonoBehaviour
         {
             ShowChestUI(inventoryUI); return;
         }
-        // 
-        else if(Input.GetKeyDown(KeyCode.E) && isTrigger && isOpen)
+        // else if((Input.GetKeyDown(KeyCode.Tab) && isTrigger && isOpen)){
+        //     MaskChestUI(inventoryUI);
+        //     inventoryUI.inventoryPanel.SetActive(false);
+        // }
+        else if((Input.GetKeyDown(KeyCode.E) && isTrigger && isOpen))
         {
             MaskChestUI(inventoryUI);
         }
@@ -118,7 +122,7 @@ public class ChestContainer : MonoBehaviour
         if (!isOpen) return;
         GameObject slotPrefab;
         GameObject content = chestPrefab.transform.GetChild(0).GetChild(0).gameObject;
-        List<Slot> slots = chestSlots.slots;
+        List<Slot> slots = player.chestInventory.slots;
 
         Debug.Log(chestSlots.NumberOfItems());
 

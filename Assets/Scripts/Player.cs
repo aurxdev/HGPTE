@@ -41,6 +41,11 @@ public class Player : MonoBehaviour
 
     public Inventory chestInventory;
 
+    public int selectedSlot;
+    public delegate void OnSlotChanged();
+    public event OnSlotChanged onSlotChanged;
+    //
+
     private void Awake()
     {
         inventory = new Inventory(maxInventory);
@@ -162,10 +167,26 @@ public class Player : MonoBehaviour
         SetStamina(this.stamina + nb, animate);
     }
 
+    public int SelectedSlotNumber(){
+        if(Input.GetKeyDown(KeyCode.Alpha1)) return 0;
+        if(Input.GetKeyDown(KeyCode.Alpha2)) return 1;
+        if(Input.GetKeyDown(KeyCode.Alpha3)) return 2;
+        if(Input.GetKeyDown(KeyCode.Alpha4)) return 3;
+        if(Input.GetKeyDown(KeyCode.Alpha5)) return 4;
+        if(Input.GetKeyDown(KeyCode.Alpha6)) return 5;
+        return -1;
+    }
 
     void Update()
     {
         MovementManager movementManager = GetComponent<MovementManager>();
+        int slotNumber = SelectedSlotNumber();
+        if (slotNumber != -1)
+        {
+            selectedSlot = slotNumber;
+            Debug.Log(slotNumber);
+            onSlotChanged?.Invoke();
+        }
         if (this.hp < this.maxHp && !IsDead) 
         {
             AddHp(healthRegenRate * Time.deltaTime, false);

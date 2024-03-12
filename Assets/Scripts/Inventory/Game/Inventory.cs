@@ -29,14 +29,6 @@ public class Inventory{
         }
     }
 
-    public string toString(){
-        string msg="";
-        for(int i=0; i<slots.Count;i++){
-            msg+= slots[i].count.ToString() + ' ' + slots[i].name+'\n';
-        }
-        return msg;
-    }
-
     public int NumberOfItems(){
         int count=0;
         foreach(Slot slot in slots){

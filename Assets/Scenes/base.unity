@@ -14776,6 +14776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4454e325ed5fda54ab8154ed1735dd6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedColor: {r: 0.1779548, g: 0.62835914, b: 0.8773585, a: 0.6862745}
   content: {fileID: 1298617739}
   inventorySlotPrefab: {fileID: 7659879866378672248, guid: 902e2675fcc103e489c86846dd03925e, type: 3}
   player: {fileID: 1133905037}
@@ -22615,6 +22616,7 @@ MonoBehaviour:
       name: 
       id: 0
       description: 
+  selectedSlot: 0
 --- !u!114 &1133905038
 MonoBehaviour:
   m_ObjectHideFlags: 0
