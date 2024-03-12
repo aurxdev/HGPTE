@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float staminaRegenRate;
+
+    [SerializeField]
+    private float timeToChangeStamina;
+
     [SerializeField]
     public Inventory inventory;
     [SerializeField]
@@ -41,20 +45,20 @@ public class Player : MonoBehaviour
     {
         inventory = new Inventory(maxInventory);
         SetHp(hp, false);
-        SetStamina(stamina);
+        SetStamina(stamina, false);
     }
 
-    private IEnumerator AnimateBarChange(Image bar, float startValue, float endValue, float duration)
+    private IEnumerator AnimateHealthBarChange(float startValue, float endValue)
     {
-        float time = 0;
-        while (time < duration)
+        float elapsedTime = 0;
+        while (elapsedTime < timeToChangeHealth)
         {
-            Debug.Log("time: " + time);
-            bar.fillAmount = Mathf.Lerp(startValue, endValue, time / duration);
-            time += Time.deltaTime;
+            elapsedTime += Time.deltaTime;
+            float var = Mathf.Lerp(startValue, endValue, elapsedTime / timeToChangeHealth);
+            healthContainer.GetComponent<Image>().fillAmount = var;
+            this.hp = var * this.maxHp;
             yield return null;
         }
-        bar.fillAmount = endValue;
     }
 
 
@@ -67,17 +71,18 @@ public class Player : MonoBehaviour
             nb = this.maxHp;
         }
 
-        float startValue = this.hp / this.maxHp;
-        this.hp = nb;
-        float var = this.hp / this.maxHp;
 
         if(!animate)
         {
+            float startValue = this.hp / this.maxHp;
+            this.hp = nb;
+            float var = this.hp / this.maxHp;
             healthContainer.GetComponent<Image>().fillAmount = var;
         }
         else
         {
-            StartCoroutine(AnimateBarChange(healthContainer.GetComponent<Image>(), startValue, var, timeToChangeHealth));
+            float startValue = this.hp / this.maxHp;
+            StartCoroutine(AnimateHealthBarChange(startValue, nb / this.maxHp));
         }
 
     }
@@ -102,8 +107,22 @@ public class Player : MonoBehaviour
 
 
 
+    private IEnumerator AnimateStaminaBarChange(float startValue, float endValue)
+    {
+        float elapsedTime = 0;
+        while (elapsedTime < timeToChangeStamina)
+        {
+            elapsedTime += Time.deltaTime;
+            float var = Mathf.Lerp(startValue, endValue, elapsedTime / timeToChangeStamina);
+            staminaContainer.GetComponent<Image>().fillAmount = var;
+            this.stamina = var * this.maxStamina;
+            yield return null;
+        }
+    }
 
-    public void SetStamina(float nb)
+
+
+    public void SetStamina(float nb, bool animate)
     {
         if (nb <= 0) {
             nb = 0;
@@ -111,10 +130,20 @@ public class Player : MonoBehaviour
             nb = this.maxStamina;
         }
 
-        this.stamina = nb;
-        float var = this.stamina / this.maxStamina;
 
-        staminaContainer.GetComponent<Image>().fillAmount = var;   
+        if(!animate)
+        {
+            float startValue = this.stamina / this.maxStamina;
+            this.stamina = nb;
+            float var = this.stamina / this.maxStamina;
+            staminaContainer.GetComponent<Image>().fillAmount = var;
+        }
+        else
+        {
+            float startValue = this.stamina / this.maxStamina;
+            StartCoroutine(AnimateStaminaBarChange(startValue, nb / this.maxStamina));
+        }
+
     }
 
     public float GetStamina()
@@ -122,14 +151,15 @@ public class Player : MonoBehaviour
         return this.stamina;
     }
 
-    public void RemoveStamina(float nb)
+    public void RemoveStamina(float nb, bool animate)
     {
-        SetStamina(this.stamina - nb);
+        SetStamina(this.stamina - nb, animate);
     }
 
-    public void AddStamina(float nb)
+
+    public void AddStamina(float nb, bool animate)
     {
-        SetStamina(this.stamina + nb);
+        SetStamina(this.stamina + nb, animate);
     }
 
 
@@ -143,8 +173,7 @@ public class Player : MonoBehaviour
 
         if (this.stamina < this.maxStamina && !movementManager.IsOnAnimation() && !movementManager.IsRunning)
         {
-            AddStamina(staminaRegenRate * Time.deltaTime);
+            AddStamina(staminaRegenRate * Time.deltaTime, false);
         }
     }
-
 }

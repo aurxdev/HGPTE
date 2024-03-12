@@ -67,7 +67,7 @@ namespace DashManager
 
             rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
             Player player = GetComponent<Player>();
-            player.RemoveStamina(dashStaminaCost);
+            player.RemoveStamina(dashStaminaCost, true);
             movementManager.IsDashing = true;
 
             if (direction != Vector2.zero)

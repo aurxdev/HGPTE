@@ -92,7 +92,7 @@ public class WalkManager : MonoBehaviour
         MovementManager movementManager = GetComponent<MovementManager>();
 
         if (Input.GetKey(KeyCode.LeftShift) && player.GetStamina() > 1 && movementManager.IsWalking){
-            player.RemoveStamina(runStaminaCost * Time.deltaTime);
+            player.RemoveStamina(runStaminaCost * Time.deltaTime, false);
             speed = runSpeed;
             GetComponentInChildren<Animator>().speed = 1.35f * (runSpeed / 5);     
             movementManager.IsRunning = true;
