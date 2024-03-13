@@ -100,7 +100,8 @@ public class MonsterMovement : MonoBehaviour
                 animator.SetFloat("vertical", 0);
                 break;
         }
-        transform.parent.Translate(vector2.normalized * speed * Time.deltaTime);
+        Vector2 res = new Vector2(vector2.x * speed * Time.deltaTime, vector2.y * speed * Time.deltaTime);
+        transform.parent.Translate(res);
     }
 
 
