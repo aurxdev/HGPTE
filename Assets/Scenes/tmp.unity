@@ -15104,7 +15104,7 @@ MonoBehaviour:
   selectedColor: {r: 0.1779548, g: 0.62835914, b: 0.8773585, a: 0.6862745}
   content: {fileID: 1298617739}
   inventorySlotPrefab: {fileID: 7659879866378672248, guid: 902e2675fcc103e489c86846dd03925e, type: 3}
-  player: {fileID: 0}
+  player: {fileID: 1133905037}
 --- !u!1001 &450109985
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16484,7 +16484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: {fileID: 2115713653}
   inventorySlotPrefab: {fileID: 7150399812615856790, guid: dd8cf2bec11b6ae4bb625cdb98478a27, type: 3}
-  player: {fileID: 0}
+  player: {fileID: 1133905037}
 --- !u!4 &581231284 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6337541802758900259, guid: f875da426d7a4ef4998a1abdaef16d08, type: 3}
@@ -23048,8 +23048,8 @@ MonoBehaviour:
       id: 0
       description: 
   maxInventory: 15
-  healthContainer: {fileID: 0}
-  staminaContainer: {fileID: 0}
+  healthContainer: {fileID: 612514180}
+  staminaContainer: {fileID: 41022254}
   chestInventory:
     slots: []
     lastItem: {fileID: 0}
@@ -34029,7 +34029,7 @@ MonoBehaviour:
   content: {fileID: 849778249}
   canvas: {fileID: 1283061942}
   inventoryInformations: {fileID: 534624840}
-  player: {fileID: 0}
+  player: {fileID: 1133905037}
   defaultIcon: {fileID: 21300000, guid: 93dbc8f96dc6c00418ba8f1a8e8992e4, type: 3}
 --- !u!1001 &1923092391
 PrefabInstance:
@@ -77462,7 +77462,7 @@ PrefabInstance:
     - target: {fileID: 2626047147418729395, guid: e82720bcabc203fb6bdde617e4a136b3, type: 3}
       propertyPath: playerObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1133905032}
     - target: {fileID: 3919122735185015645, guid: e82720bcabc203fb6bdde617e4a136b3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.21
@@ -77559,7 +77559,7 @@ PrefabInstance:
     - target: {fileID: 3723391729179523783, guid: 7fdbb1863bf718a0bbb3ebc3394e06ab, type: 3}
       propertyPath: playerObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1133905032}
     - target: {fileID: 7296456872694708575, guid: 7fdbb1863bf718a0bbb3ebc3394e06ab, type: 3}
       propertyPath: m_Name
       value: Monster2
