@@ -16171,7 +16171,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 585387267}
-  - component: {fileID: 585387269}
   - component: {fileID: 585387268}
   m_Layer: 0
   m_Name: MonsterMovement
@@ -16208,51 +16207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 10
---- !u!61 &585387269
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 585387266}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 10, y: 10}
-  m_EdgeRadius: 0
+  speed: 1.5
+  randomlyMoveTime: 5
+  playerObject: {fileID: 1133905032}
 --- !u!1 &586614659
 GameObject:
   m_ObjectHideFlags: 0
@@ -22659,8 +22616,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
+  m_UseAutoMass: 1
+  m_Mass: 0.08329774
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -33190,7 +33147,14 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 24.38, y: 11.586702}
       - {x: 25.308292, y: 3.2963216}
-      - {x: 27.930628, y: -4.9823923}
+      - {x: 25.371395, y: -7.8986287}
+      - {x: 25.005663, y: -11.511012}
+      - {x: 4.0858154, y: -27.051836}
+      - {x: -3.6050358, y: -28.245403}
+      - {x: -9.532376, y: -23.269598}
+      - {x: -13.167173, y: -34.07394}
+      - {x: 7.5554237, y: -35.299976}
+      - {x: 34.58599, y: -20.263512}
       - {x: 36.458035, y: 6.756396}
       - {x: 33.392826, y: 25.153788}
       - {x: 8.542559, y: 36.840263}
@@ -34108,6 +34072,8 @@ GameObject:
   - component: {fileID: 1957349914}
   - component: {fileID: 1957349918}
   - component: {fileID: 1957349919}
+  - component: {fileID: 1957349920}
+  - component: {fileID: 1957349921}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -34129,10 +34095,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
-  damage: 30
+  damage: 15
   attackSpeed: 1
   attackRadius: 0.6
-  attackCollider: {fileID: 0}
+  attackCollider: {fileID: 1957349919}
 --- !u!212 &1957349916
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -34233,9 +34199,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.025691986, y: -0.19942045}
+  m_Offset: {x: -0.025691986, y: -0.2273384}
   serializedVersion: 2
-  m_Radius: 0.27547073
+  m_Radius: 0.2475528
 --- !u!58 &1957349919
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -34268,9 +34234,57 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.35}
   serializedVersion: 2
   m_Radius: 1
+--- !u!95 &1957349920
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957349913}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 65173be5314a87f039a3e14200ec4dcb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!50 &1957349921
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957349913}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 1
+  m_Mass: 0.43317965
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 7
 --- !u!1 &1961047320
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,6 +30,7 @@ public class AttackManager : MonoBehaviour
     {
         MovementManager movementManager = GetComponent<MovementManager>();
         movementManager.IsAttacking = true;
+        GetComponent<Player>().RemoveStamina(30, true);
         if (monster != null)
         {
             monster.TakeDamage(damage);
@@ -62,7 +63,8 @@ public class AttackManager : MonoBehaviour
     void Update()
     {
         MovementManager movementManager = GetComponent<MovementManager>();
-        if (Input.GetButton("Fire1") && movementManager != null && !movementManager.IsAttacking)
+        Player player = GetComponent<Player>();
+        if (Input.GetButton("Fire1") && movementManager != null && !movementManager.IsAttacking && player != null && !player.IsDead && player.GetStamina() > 30)
         {
             StartCoroutine(Attack());
         }

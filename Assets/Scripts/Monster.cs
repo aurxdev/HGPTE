@@ -25,7 +25,12 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private CircleCollider2D attackCollider;
 
-    Player player;
+    private Player player;
+
+
+    public Player GetPlayer() {
+        return player;
+    }
 
     public float CurrentHealth
     {
@@ -73,7 +78,6 @@ public class Monster : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        attackCollider = GetComponentInChildren<CircleCollider2D>();
     }
 
     private IEnumerator Attack()
@@ -91,7 +95,9 @@ public class Monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        attackCollider.radius = attackRadius;
+        if (attackCollider != null) {
+            //attackCollider.radius = attackRadius;
+        }
         if (player != null && canAttack)
         {
             StartCoroutine(Attack());
