@@ -12,12 +12,8 @@ public abstract class IHarvest : MonoBehaviour
 
     [SerializeField]
     public int maxAmount = 5;
-
     [SerializeField]
-    public GameObject collectiblePrefab;
-
-    [SerializeField]
-    public List<ItemData> collectible;
+    public ItemData item;
 
     [SerializeField]
     public float harvestTime = 2.0f;

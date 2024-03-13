@@ -210,17 +210,17 @@ public class Player : MonoBehaviour
         {
             selectedSlot = slotNumber;
             onSlotChanged?.Invoke();
-            if (inventory.slots[selectedSlot].name == "Silver sword") {
+            if (inventory.slots[selectedSlot].id == 10) {
                 CanAttack = true;
             } else {
                 CanAttack = false;
             }
-            if (inventory.slots[selectedSlot].name == "Silver pickaxe") {
+            if (inventory.slots[selectedSlot].id == 12) {
                 CanMine = true;
             } else {
                 CanMine = false;
             }
-            if (inventory.slots[selectedSlot].name == "Silver axe") {
+            if (inventory.slots[selectedSlot].id == 11) {
                 CanCutting = true;
             } else {
                 CanCutting = false;

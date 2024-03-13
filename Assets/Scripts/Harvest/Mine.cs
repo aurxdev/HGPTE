@@ -13,7 +13,7 @@ public class Mine : IHarvest
         yield return new WaitForSeconds(harvestTime);
         for (int i = 0; i < amount; i++)
         {
-                //ajouter les itemdata à l'inventaire et fait de même pour la méthode cut, quadn c'est fait dit le stp
+            player.inventory.Add(new Item(item));
         }        
         movementManager.IsHarvesting = false;
         Destroy(gameObject);
