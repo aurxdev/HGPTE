@@ -86,33 +86,14 @@ class Portal : MonoBehaviour
             if (player)
             {
                 playerTeleporting = player;
-                playerTeleporting.GetComponent<MovementManager>().IsTeleporting = true;
+                MovementManager movementManager = playerTeleporting.GetComponent<MovementManager>();
+
+                movementManager.IsTeleporting = true;
                 Rigidbody2D rb = playerTeleporting.GetComponent<Rigidbody2D>();
 
-                Animator animator = playerTeleporting.GetComponentInChildren<Animator>();
 
-                animator.SetBool("isMoving", true);
-                switch (otherPortal.GetComponent<Portal>().direction)
-                {
-                    case Direction.E:
-                        animator.SetFloat("vertical", 0);
-                        animator.SetFloat("horizontal", 1);
-                        break;
-                    case Direction.W:
-                        animator.SetFloat("vertical", 0);
-                        animator.SetFloat("horizontal", -1);
-                        break;
-                    case Direction.N:
-                        animator.SetFloat("vertical", 1);
-                        animator.SetFloat("horizontal", 0);
-                        break;
-                    case Direction.S:
-                        animator.SetFloat("vertical", -1);
-                        animator.SetFloat("horizontal", 0);
-                        break;
-                    default:
-                        break;
-                }
+                movementManager.IsWalking = true;
+                movementManager.LastDirection = otherPortal.GetComponent<Portal>().direction.ToString()[0];
 
                 StartCoroutine(TeleportationEffect());
                 if (rb)
@@ -144,7 +125,6 @@ class Portal : MonoBehaviour
     {
         float originalCameraOrthographicSize = Camera.main.orthographicSize;
 
-
         SpriteRenderer spriteRenderer = playerTeleporting.GetComponentInChildren<SpriteRenderer>();
         spriteRenderer.enabled = false;
 
@@ -165,11 +145,12 @@ class Portal : MonoBehaviour
 
         spriteRenderer.enabled = true;
 
-        playerTeleporting.GetComponent<MovementManager>().IsTeleporting = false;
+        MovementManager movementManager = playerTeleporting.GetComponent<MovementManager>();
+
+        movementManager.IsTeleporting = false;
         playerTeleporting.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
-        playerTeleporting.GetComponent<MovementManager>().LastDirection = otherPortal.GetComponent<Portal>().direction.ToString()[0];
-        playerTeleporting.GetComponentInChildren<Animator>().SetBool("isMoving", false);        
+        movementManager.IsWalking = false;
         
         playerTeleporting = null;
     }
@@ -184,11 +165,13 @@ class Portal : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D()
+    private void OnTriggerExit2D(Collider2D other)
     {
-        player = null;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            player = null;
+        }
     }
-
 
 
 

@@ -8,7 +8,45 @@ using UnityEngine;
 
 public class MovementManager : MonoBehaviour
 {
-    public char LastDirection { get; set; }
+
+    private char lastDirection;
+    public char LastDirection
+    {
+        get => lastDirection;
+        set
+        {
+            lastDirection = value;
+            if (animator != null)
+            {
+                GameObject detector = GameObject.Find("Detector");
+                switch (value)
+                {
+                    case 'N':
+                        animator.SetFloat("vertical", 1);
+                        animator.SetFloat("horizontal", 0);
+                        detector.transform.localPosition = new Vector2(0, 0.6f);
+                        break;
+                    case 'S':
+                        animator.SetFloat("vertical", -1);
+                        animator.SetFloat("horizontal", 0);
+                        detector.transform.localPosition = new Vector2(0, -0.6f);
+                        break;
+                    case 'E':
+                        animator.SetFloat("vertical", 0);
+                        animator.SetFloat("horizontal", 1);
+                        detector.transform.localPosition = new Vector2(0.6f, 0);
+                        break;
+                    case 'W':
+                        animator.SetFloat("vertical", 0);
+                        animator.SetFloat("horizontal", -1);
+                        detector.transform.localPosition = new Vector2(-0.6f, 0);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
 
     private Animator animator;
 
@@ -63,13 +101,11 @@ public class MovementManager : MonoBehaviour
             isStuck = value;
             if (value && animator != null)
             {
-                animator.SetBool("isMoving", false);
-                animator.SetBool("isDashing", false);
-                Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
-                rigidbody2D.velocity = Vector2.zero;
                 IsWalking = false;
                 IsRunning = false;
                 IsDashing = false;
+                Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
+                rigidbody2D.velocity = Vector2.zero;
             }
         }
     }
@@ -98,17 +134,43 @@ public class MovementManager : MonoBehaviour
     public bool IsRunning {get; set;}
 
 
+    private bool isAttacking = false;
+
+    public bool IsAttacking
+    {
+        get => isAttacking;
+        set
+        {
+            isAttacking = value;
+            Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
+            if (animator != null)
+            {
+                if (value)
+                {
+                    IsWalking = false;
+                    IsRunning = false;
+                    rigidbody2D.velocity = Vector2.zero;
+                    animator.SetBool("isAttacking", true);
+                }
+                else
+                {
+                    animator.SetBool("isAttacking", false);
+                }
+            }
+        }
+    }
+
+
     void Awake()
     {
         animator = GetComponentInChildren<Animator>();
-        animator.SetFloat("vertical", -1);
-        animator.SetFloat("horizontal", 0);
+        LastDirection = 'S';
     }
 
     
     public bool IsOnAnimation()
     {
-        return IsDashing || IsTeleporting || IsStuck;
+        return IsDashing || IsTeleporting || IsStuck || IsAttacking;
     }
 
 }

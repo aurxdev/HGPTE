@@ -23,15 +23,6 @@ public class WalkManager : MonoBehaviour
         return value;
     }
     
-    // Animates the movement of the player character based on the given direction
-    private void AnimateMovement(Vector2 direction, Animator animator)
-    {
-        if (direction != Vector2.zero && direction.magnitude > 0)
-        {
-            animator.SetFloat("vertical", direction.y);
-            animator.SetFloat("horizontal", direction.x);
-        }
-    }
 
     private void Walk(Animator animator, Rigidbody2D rigidbody2D, MovementManager movement) {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -74,7 +65,6 @@ public class WalkManager : MonoBehaviour
 
         movement.IsWalking = true;
         Vector2 direction = new Vector2(horizontal, vertical);
-        AnimateMovement(direction, animator);
         rigidbody2D.velocity = new Vector2(horizontal * speed * Time.timeScale, vertical* speed * Time.timeScale);
     }
 
