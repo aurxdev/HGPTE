@@ -58,6 +58,10 @@ public class Player : MonoBehaviour
 
     public bool CanAttack { get; set; } = false;
 
+    public bool CanMine { get; set; } = false;
+
+    public bool CanCutting { get; set; } = false;
+
     public Inventory chestInventory;
 
     public int selectedSlot;
@@ -210,6 +214,16 @@ public class Player : MonoBehaviour
                 CanAttack = true;
             } else {
                 CanAttack = false;
+            }
+            if (inventory.slots[selectedSlot].name == "Silver pickaxe") {
+                CanMine = true;
+            } else {
+                CanMine = false;
+            }
+            if (inventory.slots[selectedSlot].name == "Silver axe") {
+                CanCutting = true;
+            } else {
+                CanCutting = false;
             }
         }
         if(Input.GetKeyDown(KeyCode.Escape) && !IsDead && !IsOpening ){
