@@ -15,7 +15,7 @@ public class Collectable : MonoBehaviour
         Collider2D hit = Physics2D.OverlapCircle(vec, radius);
         Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
-        Debug.Log(hit.gameObject.tag);
+        //Debug.Log(hit.gameObject.tag);
 
         if (hit != null && hit.gameObject.tag != "Collectible")
         {

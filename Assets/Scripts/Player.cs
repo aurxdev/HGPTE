@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject staminaContainer;
 
+
     private bool isDead;
 
     public bool IsDead
@@ -54,6 +55,8 @@ public class Player : MonoBehaviour
 
     public bool IsPausing { get; set; }
     public bool IsFarming { get; set;}
+
+    public bool CanAttack { get; set; } = false;
 
     public Inventory chestInventory;
 
@@ -203,6 +206,11 @@ public class Player : MonoBehaviour
         {
             selectedSlot = slotNumber;
             onSlotChanged?.Invoke();
+            if (inventory.slots[selectedSlot].name == "Silver sword") {
+                CanAttack = true;
+            } else {
+                CanAttack = false;
+            }
         }
         if(Input.GetKeyDown(KeyCode.Escape) && !IsDead && !IsOpening ){
             IsPausing = !IsPausing;
