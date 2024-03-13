@@ -39,6 +39,7 @@ public class Inventory{
         return count;
     }
 
+    // to do: refactor this method
     public void Add(Collectable c){
         lastItem = c;
         // on parcours une premiere fois l'inventaire pour trouver un slot si les 2 ont le meme ID
@@ -64,6 +65,31 @@ public class Inventory{
             }
         }
         lastItem=null;
+    }
+
+    public void Add(Item item){
+        // on parcours une premiere fois l'inventaire pour trouver un slot si les 2 ont le meme ID
+        foreach(Slot slot in slots){
+            if (slot.id == item.data.id && slot.CanAddItem()){
+                slot.AddItem(item);
+                lastSlot=slot;
+                // on declenche l'event
+                onInventoryChanged?.Invoke();
+                onInventoryChangedBar?.Invoke();
+                return;
+            }
+        }
+        // sinon si on met au prochain slot vide
+        foreach(Slot slot in slots){
+            if (slot.type == ItemType.NONE || slot == null){
+                slot.AddItem(item);
+                lastSlot=slot;
+                // on declenche l'event
+                onInventoryChanged?.Invoke();
+                onInventoryChangedBar?.Invoke();
+                return;
+            }
+        }
     }
 
     public void Add(List<Slot> playerSlots, int index){
@@ -151,8 +177,45 @@ public class Inventory{
         }
     }
 
+    // inventaire qui contient un item
+    public bool Contains(int id, int nb){
+        foreach(Slot slot in slots){
+            if (slot.id == id && slot.count >= nb){
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public bool Craft(int id1, int nb1, int id2, int nb2, ItemData item){
+        if (Contains(id1, nb1) && Contains(id2,nb2)){
+            RemoveWithID(id1, nb1);
+            RemoveWithID(id2, nb2);
+            Add(new Item(item));
+            return true;
+        }
+        return false;
+    }
 
+    public void RemoveWithID(int id, int nb){
+        foreach(Slot slot in slots){
+            if (slot.id == id && slot.count == nb){
+                ResetSlot(slot);
+                // on declenche l'event
+                onInventoryChanged?.Invoke();
+                return;
+            }
+            else if(slot.id == id && slot.count > nb){
+                slot.count -= nb;
+                // on declenche l'event
+                onInventoryChanged?.Invoke();
+                return;
+
+            }
+        }
+    }
+
+    // remove avec la place dans l'inventaire
     public void Remove(int index){
         ResetSlot(slots[index]);
 

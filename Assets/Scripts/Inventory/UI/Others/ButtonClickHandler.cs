@@ -18,8 +18,6 @@ public class ButtonClickHandler : MonoBehaviour, IPointerClickHandler
                 player.chestInventory.Add(player.inventory.slots, dg.nbSlot);
                 player.inventory.Remove(dg.nbSlot);
                 // Destroy(informations.gameObject);
-
-                Debug.Log(player.chestInventory.NumberOfItems());
             }
         }
     }

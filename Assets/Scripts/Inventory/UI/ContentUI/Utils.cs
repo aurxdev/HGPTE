@@ -15,6 +15,7 @@ public class Utils : MonoBehaviour
             int nbMax = player.inventory.slots.Count;
 
             inventoryInformations.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = defaultIcon;
+            inventoryInformations.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
             inventoryInformations.transform.GetChild(1).gameObject.GetComponent<Text>().text = "";
             inventoryInformations.transform.GetChild(2).GetChild(0).gameObject.GetComponent<Text>().text = nb.ToString() + " / " + nbMax.ToString();
             inventoryInformations.transform.GetChild(3).gameObject.GetComponent<Text>().text = "";

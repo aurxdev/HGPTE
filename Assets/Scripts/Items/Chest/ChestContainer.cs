@@ -65,7 +65,8 @@ public class ChestContainer : MonoBehaviour
                 isOpen = false;
                 player.IsOpening = false;
                 player.chestInventory = null;
-                if (inventoryUI != null) inventoryUI.maskUI();
+                // attention cette ligne bug
+                if (inventoryUI != null && inventoryUI.inventoryPanel.activeSelf) inventoryUI.maskUI();
             }
         }
         isTrigger=false;
@@ -87,13 +88,6 @@ public class ChestContainer : MonoBehaviour
             MaskChestUI(inventoryUI);
         }
     }
-
-    public void ShowChest()
-    {
-        InventoryUI inventoryUI = GameObject.FindObjectOfType<InventoryUI>();
-        ShowChestUI(inventoryUI);
-    }
-
     public void ShowChestUI(InventoryUI inventoryUI)
     {
         chestPrefab = Instantiate(chestUI);
@@ -124,8 +118,6 @@ public class ChestContainer : MonoBehaviour
         GameObject slotPrefab;
         GameObject content = chestPrefab.transform.GetChild(0).GetChild(0).gameObject;
         List<Slot> slots = player.chestInventory.slots;
-
-        Debug.Log(chestSlots.NumberOfItems());
 
         if(content.transform.childCount > 0){
             foreach(Transform child in content.transform)

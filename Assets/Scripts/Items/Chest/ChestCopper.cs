@@ -17,7 +17,7 @@ public class ChestCopper : MonoBehaviour
 
     private bool isOpen=false;
     [SerializeField]
-    public int maxItem = 4;
+    public int maxItem;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

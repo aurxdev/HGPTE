@@ -15,11 +15,7 @@ MonoBehaviour:
   id: 12
   itemName: Pickaxe
   type: 7
-  description: "Un outil essentiel pour les explorateurs intr\xE9pides, la pioche
-    est utilis\xE9e pour extraire les ressources pr\xE9cieuses cach\xE9es sous la
-    surface de la terre. Des minerais rares aux gemmes \xE9tincelantes, la pioche
-    permet au chevalier de collecter les tr\xE9sors enfouis et de renforcer son arsenal
-    pour affronter les ennemis les plus redoutables."
+  description: "Outil indispensable pour extraire les ressources pr\xE9cieuses."
   imageMap: {fileID: 21300000, guid: 1fb46228a3bcb5042a763829cc07f9e5, type: 3}
   imageInventory: {fileID: 21300000, guid: 1fb46228a3bcb5042a763829cc07f9e5, type: 3}
   isCollectable: 0

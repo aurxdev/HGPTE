@@ -41,6 +41,15 @@ public class Slot{
         this.description = description;
     }
 
+    public void AddItem(Item item){
+        this.id = item.data.id;
+        this.type = item.data.type;
+        this.icon = item.data.imageInventory;
+        this.name = item.data.itemName;
+        this.description = item.data.description;
+        this.count++;
+    }
+
     public void AddItem(Collectable c){
         this.id=c.item.id;
         this.type = c.item.type;
