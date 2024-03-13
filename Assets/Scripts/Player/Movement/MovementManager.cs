@@ -52,14 +52,6 @@ public class MovementManager : MonoBehaviour
 
     private bool isTeleporting = false;
 
-    public static readonly int idSpriteDown = 0;
-
-    public static readonly int idSpriteUp = 19;
-
-    public static readonly int idSpriteLeft = 27;
-
-    public static readonly int idSpriteRight = 8;
-
     public bool IsTeleporting
     {
         get => isTeleporting;
@@ -149,6 +141,34 @@ public class MovementManager : MonoBehaviour
                 {
                     IsWalking = false;
                     IsRunning = false;
+                    IsHarvesting = false;
+                    rigidbody2D.velocity = Vector2.zero;
+                    animator.SetBool("isAttacking", true);
+                }
+                else
+                {
+                    animator.SetBool("isAttacking", false);
+                }
+            }
+        }
+    }
+
+    private bool isHarvesting = false;
+
+    public bool IsHarvesting
+    {
+        get => isHarvesting;
+        set
+        {
+            isHarvesting = value;
+            Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
+            if (animator != null)
+            {
+                if (value)
+                {
+                    IsWalking = false;
+                    IsRunning = false;
+                    IsAttacking = false;
                     rigidbody2D.velocity = Vector2.zero;
                     animator.SetBool("isAttacking", true);
                 }
