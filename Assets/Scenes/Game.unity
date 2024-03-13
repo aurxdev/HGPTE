@@ -30771,6 +30771,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664323881}
   m_CullTransparentMesh: 1
+--- !u!1 &1667246202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1667246203}
+  - component: {fileID: 1667246205}
+  - component: {fileID: 1667246204}
+  m_Layer: 5
+  m_Name: HGPTE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1667246203
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667246202}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 106863120300240831}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 951.5, y: -184.93}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1667246204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667246202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 425c72af28bc75b4b8e256891b9b626d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1667246205
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667246202}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1668676475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81498,14 +81573,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8393414615147171567, guid: 9e3f1c9fd53781041b57b429b6e55f28, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -436.9
+      objectReference: {fileID: 0}
     - target: {fileID: 9006321897993807453, guid: 9e3f1c9fd53781041b57b429b6e55f28, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9020698474344872997, guid: 9e3f1c9fd53781041b57b429b6e55f28, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6866972346058949575, guid: 9e3f1c9fd53781041b57b429b6e55f28, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3100112866635940839, guid: 9e3f1c9fd53781041b57b429b6e55f28, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 1667246203}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1280495421632600469, guid: 9e3f1c9fd53781041b57b429b6e55f28, type: 3}
       insertIndex: -1
@@ -81514,6 +81597,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1408361095}
   m_SourcePrefab: {fileID: 100100000, guid: 9e3f1c9fd53781041b57b429b6e55f28, type: 3}
+--- !u!224 &106863120300240831 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3100112866635940839, guid: 9e3f1c9fd53781041b57b429b6e55f28, type: 3}
+  m_PrefabInstance: {fileID: 106863120300240830}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1462948145476580603 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8413114972430063957, guid: 95112dfd97b3b0643a4cc62dbecf1ffc, type: 3}
