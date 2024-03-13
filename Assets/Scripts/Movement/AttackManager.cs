@@ -64,7 +64,7 @@ public class AttackManager : MonoBehaviour
     {
         MovementManager movementManager = GetComponent<MovementManager>();
         Player player = GetComponent<Player>();
-        if (Input.GetButton("Fire1") && movementManager != null && !movementManager.IsAttacking && player != null && !player.IsDead && player.GetStamina() > 30)
+        if (Input.GetButton("Fire1") && movementManager != null && !movementManager.IsAttacking && !movementManager.IsOnAnimation() && player != null && !player.IsDead && player.GetStamina() > 30)
         {
             StartCoroutine(Attack());
         }
