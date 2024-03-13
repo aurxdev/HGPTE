@@ -96,7 +96,7 @@ public class Monster : MonoBehaviour
     void Update()
     {
         if (attackCollider != null) {
-            //attackCollider.radius = attackRadius;
+            attackCollider.radius = attackRadius;
         }
         if (player != null && canAttack)
         {
