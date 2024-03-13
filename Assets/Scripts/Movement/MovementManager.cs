@@ -53,6 +53,27 @@ public class MovementManager : MonoBehaviour
         }
     }
 
+    private bool isStuck = false;
+
+    public bool IsStuck
+    {
+        get => isStuck;
+        set
+        {
+            isStuck = value;
+            if (value && animator != null)
+            {
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isDashing", false);
+                Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
+                rigidbody2D.velocity = Vector2.zero;
+                IsWalking = false;
+                IsRunning = false;
+                IsDashing = false;
+            }
+        }
+    }
+
 
     private bool isWalking = false;
     public bool IsWalking
@@ -87,7 +108,7 @@ public class MovementManager : MonoBehaviour
     
     public bool IsOnAnimation()
     {
-        return IsDashing || IsTeleporting;
+        return IsDashing || IsTeleporting || IsStuck;
     }
 
 }
