@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item
 {
     public ItemData data;
 

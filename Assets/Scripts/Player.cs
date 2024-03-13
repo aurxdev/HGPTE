@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Player : MonoBehaviour
@@ -36,8 +37,23 @@ public class Player : MonoBehaviour
     private GameObject healthContainer;
     [SerializeField]
     private GameObject staminaContainer;
-    public bool IsDead {  get; set; }
+
+    private bool isDead;
+
+    public bool IsDead
+    {
+        get { return isDead; }
+        set {
+            isDead = value;
+            if (isDead) {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
+    }
     public bool IsOpening { get; set; }
+
+    public bool IsPausing { get; set; }
+    public bool IsFarming { get; set;}
 
     public Inventory chestInventory;
 
@@ -51,6 +67,8 @@ public class Player : MonoBehaviour
         inventory = new Inventory(maxInventory);
         SetHp(hp, false);
         SetStamina(stamina, false);
+        IsPausing=true;
+        IsDead=false;
     }
 
     private IEnumerator AnimateHealthBarChange(float startValue, float endValue)
@@ -186,6 +204,10 @@ public class Player : MonoBehaviour
             selectedSlot = slotNumber;
             onSlotChanged?.Invoke();
         }
+        if(Input.GetKeyDown(KeyCode.Escape) && !IsDead && !IsOpening ){
+            IsPausing = !IsPausing;
+        }
+
         if (this.hp < this.maxHp && !IsDead) 
         {
             AddHp(healthRegenRate * Time.deltaTime, false);

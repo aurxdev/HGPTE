@@ -170,7 +170,8 @@ public class MovementManager : MonoBehaviour
     
     public bool IsOnAnimation()
     {
-        return IsDashing || IsTeleporting || IsStuck || IsAttacking;
+        Player player = GetComponent<Player>();
+        return IsDashing || IsTeleporting || IsStuck || IsAttacking || player.IsPausing;
     }
 
 }
