@@ -22,7 +22,7 @@ public class ChestCopper : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Player player = collision.GetComponent<Player>();
-        if (player)
+        if (collision.CompareTag("Player"))
         {
             isTrigger = true;
         }
@@ -30,6 +30,7 @@ public class ChestCopper : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (!collision.CompareTag("Player"))return;
         isTrigger=false;
     }
 

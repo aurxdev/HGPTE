@@ -55,6 +55,7 @@ public class ChestContainer : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (!collision.CompareTag("Player"))return;
         InventoryUI inventoryUI = GameObject.FindObjectOfType<InventoryUI>();
         if (isOpen)
         {
