@@ -24,6 +24,7 @@ public class InventoryBarHUI : MonoBehaviour
         player.onSlotChanged -= UpdateUI;
     }
 
+    // met à jour l'UI de la barre d'inventaire horizontale
     public void UpdateUI(){
         GameObject slotPrefab;
         if(content.transform.childCount > 0){
@@ -54,5 +55,5 @@ public class InventoryBarHUI : MonoBehaviour
                 slotPrefab.GetComponent<Image>().color = selectedColor;
             }
         }     
-    }
+    } // UpdateUI()
 }

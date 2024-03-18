@@ -13,6 +13,7 @@ public class CraftTable : MonoBehaviour
     private bool isOpen;
 
 
+    // lorsque le joueur entre dans la zone de la table de craft
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -22,8 +23,9 @@ public class CraftTable : MonoBehaviour
             isOpen=false;
         }
 
-    }
+    } // OnTriggerEnter2D(Collider2D)
 
+    // lorsque le joueur sort de la zone de la table de craft
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (isOpen)
@@ -32,8 +34,9 @@ public class CraftTable : MonoBehaviour
             isOpen = false;
         }
         isTrigger = false;
-    }
+    } // OnTriggerExit2D(Collider2D)
 
+    // appelé à chaque frame
     void Update()
     {
         if (isTrigger && Input.GetKeyDown(KeyCode.E))
@@ -48,7 +51,6 @@ public class CraftTable : MonoBehaviour
                 craftTableUI.SetActive(true);
                 isOpen = true;
             }
-    }        
-
-    }
+        }      
+    }  // Update()
 }

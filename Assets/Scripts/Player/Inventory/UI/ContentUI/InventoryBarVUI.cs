@@ -19,6 +19,7 @@ public class InventoryBarVUI : MonoBehaviour
         player.inventory.onInventoryChangedBar -= UpdateUI;
     }
 
+    // met à jour l'UI de la barre d'inventaire verticale
     public void UpdateUI(){
         List <Slot> slots = player.inventory.slots;
         Slot lastSlot = player.inventory.lastSlot;
@@ -45,15 +46,17 @@ public class InventoryBarVUI : MonoBehaviour
                 createGraphicSlot(lastSlot); // on crée un nouveau slot
             }
         }
-    }
+    } // UpdateUI()
 
+    // rafraichit le slot graphiquement
     private void refreshGraphicSlot(Transform existingSlot){
         SlotUI dataSlot = existingSlot.gameObject.GetComponent<SlotUI>();
         int nb = dataSlot.getNb();
         dataSlot.setNb(nb + 1);
         existingSlot.GetChild(1).gameObject.GetComponent<Text>().text = (nb + 1).ToString();
-    }
+    } // refreshGraphicSlot()
 
+    // crée un slot graphiquement
     private void createGraphicSlot(Slot lastSlot){
         GameObject graphicSlot = Instantiate(inventorySlotPrefab);
 
@@ -69,8 +72,9 @@ public class InventoryBarVUI : MonoBehaviour
 
         // animation fade out
         StartCoroutine(FadeOutAndDestroy(graphicSlot, 1f));
-    }
+    } // createGraphicSlot()
 
+    // animation fade out
     private IEnumerator FadeOutAndDestroy(GameObject graphicSlot, float duration)
     {
         // on attends 1sec
@@ -88,5 +92,5 @@ public class InventoryBarVUI : MonoBehaviour
         }
 
         Destroy(graphicSlot);
-    }
+    } // FadeOutAndDestroy()
 }

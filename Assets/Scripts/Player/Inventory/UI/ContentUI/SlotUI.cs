@@ -10,20 +10,23 @@ public class SlotUI : MonoBehaviour
 
     private String description;
 
+    // constructeur
     public SlotUI(int id, int nb)
     {
         this.id = id;
         this.nb = nb;
         this.description = "";
-    }
+    } // SlotUI(int, int)
 
+    // constructeur
     public SlotUI(int id, int nb, String description)
     {
         this.id = id;
         this.nb = nb;
         this.description = description;
-    }
+    } // SlotUI(int, int, String)
 
+    // ------ GETTERS ------
     public int getNb()
     {
         return nb;
@@ -34,6 +37,12 @@ public class SlotUI : MonoBehaviour
         return id;
     }
 
+    public String getDescription()
+    {
+        return description;
+    }
+    
+    // ------ SETTERS ------
     public void setNb(int nb)
     {
         this.nb = nb;
@@ -43,12 +52,6 @@ public class SlotUI : MonoBehaviour
     {
         this.id = id;
     }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
     public void setDescription(String description)
     {
         this.description = description;

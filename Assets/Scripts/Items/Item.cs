@@ -7,8 +7,9 @@ public class Item
 {
     public ItemData data;
 
+    // constructeur
     public Item(ItemData item)
     {
         this.data = item;
-    }
+    } // Item(ItemData)
 }

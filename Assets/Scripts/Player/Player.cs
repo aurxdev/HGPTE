@@ -67,8 +67,8 @@ public class Player : MonoBehaviour
     public int selectedSlot;
     public delegate void OnSlotChanged();
     public event OnSlotChanged onSlotChanged;
-    //
 
+    // appelé avant la première frame
     private void Awake()
     {
         inventory = new Inventory(maxInventory);
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         SetStamina(stamina, false);
         IsPausing=true;
         IsDead=false;
-    }
+    } // Awake()
 
     private IEnumerator AnimateHealthBarChange(float startValue, float endValue)
     {
@@ -192,6 +192,7 @@ public class Player : MonoBehaviour
         SetStamina(this.stamina + nb, animate);
     }
 
+    // écoute les touches pour changer de slot
     public int SelectedSlotNumber(){
         if(Input.GetKeyDown(KeyCode.Alpha1)) return 0;
         if(Input.GetKeyDown(KeyCode.Alpha2)) return 1;
@@ -200,7 +201,7 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha5)) return 4;
         if(Input.GetKeyDown(KeyCode.Alpha6)) return 5;
         return -1;
-    }
+    } // SelectedSlotNumber()
 
     void Update()
     {

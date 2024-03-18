@@ -25,23 +25,27 @@ public class ChestContainer : MonoBehaviour
     private Player player;
     private GameObject chestPrefab;
 
+    // appelé avant la première frame
     void Start(){
         chestSlots = new Inventory(capacity); // on initialise l'inventaire
         player = GameObject.FindObjectOfType<Player>();
         player.chestInventory = chestSlots;
         player.chestInventory.onInventoryChanged += ShowChestSlotsUI;
-    }
+    } // Start()
 
+    // appelé lors de la destruction
     void Destroy()
     {
         player.chestInventory.onInventoryChanged -= ShowChestSlotsUI;
-    }
+    } // Destroy()
 
+    // lorsque l'inventaire du coffre change
     private void ChestInventory_onInventoryChanged()
     {
         throw new System.NotImplementedException();
-    }
+    } // ChestInventory_onInventoryChanged()
 
+    // lorsque le joueur entre dans la zone du coffre
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -51,8 +55,9 @@ public class ChestContainer : MonoBehaviour
             isOpen=false;
         }
 
-    }
+    } // OnTriggerEnter2D(Collider2D)
 
+    // lorsque le joueur sort de la zone du coffre
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player"))return;
@@ -71,8 +76,9 @@ public class ChestContainer : MonoBehaviour
             }
         }
         isTrigger=false;
-    }
+    } // OnTriggerExit2D(Collider2D)
 
+    // mise à jour de l'inventaire du coffre
     void Update()
     {
         InventoryUI inventoryUI = GameObject.FindObjectOfType<InventoryUI>();
@@ -88,7 +94,9 @@ public class ChestContainer : MonoBehaviour
         {
             MaskChestUI(inventoryUI);
         }
-    }
+    } // Update()
+
+    // affichage de l'interface du coffre
     public void ShowChestUI(InventoryUI inventoryUI)
     {
         chestPrefab = Instantiate(chestUI);
@@ -99,8 +107,9 @@ public class ChestContainer : MonoBehaviour
         player.chestInventory = chestSlots;
         ShowChestSlotsUI();
         if (inventoryUI != null && !inventoryUI.inventoryPanel.activeSelf) inventoryUI.showUI();
-    }
+    } // ShowChestUI(InventoryUI)
 
+    // masquage de l'interface du coffre
     public void MaskChestUI(InventoryUI inventoryUI)
     {
         GameObject chestUIClone = GameObject.Find("ChestUI(Clone)");
@@ -111,8 +120,9 @@ public class ChestContainer : MonoBehaviour
         player.chestInventory = null;
         ShowChestSlotsUI();
         if (inventoryUI != null) inventoryUI.showUI();
-    }
+    } // MaskChestUI(InventoryUI)
 
+    // affichage des slots de l'inventaire du coffre
     public void ShowChestSlotsUI()
     {
         if (!isOpen) return;
@@ -148,6 +158,6 @@ public class ChestContainer : MonoBehaviour
                 slotPrefab.transform.SetParent(content.transform, false);
             }
         }
-    }
+    }// ShowChestSlotsUI()
 }
 

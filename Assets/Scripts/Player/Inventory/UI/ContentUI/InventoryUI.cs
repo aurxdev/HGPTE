@@ -40,6 +40,7 @@ public class InventoryUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))showUI();
     }
 
+    // affiche ou masque l'UI de l'inventaire
     public void showUI(){
         inventoryPanel.SetActive(!inventoryPanel.activeSelf); // on active ou desactive
         if(inventoryPanel.activeSelf) {
@@ -48,14 +49,16 @@ public class InventoryUI : MonoBehaviour
             // inventoryPanel.transform.LeanMoveLocalX(inventoryPanel.transform.localPosition.x + 500, 0.1f).setEaseOutCubic(); // si on ferme on slide
         }
         Utils.UpdateSlotsUI(player, inventorySlotPrefab, content, canvas, inventoryInformations, defaultIcon); // on update l'UI   
-    }
+    } // showUI()
 
+    // masque l'UI de l'inventaire
     public void maskUI(){
         inventoryPanel.SetActive(false);
         Utils.UpdateUI(true, player, inventorySlotPrefab, content, canvas, inventoryInformations); // on update l'UI
-    }
+    } // maskUI()
 
+    // lorsque l'inventaire change, on update tous les slots
     public void OnInventoryChanged(){
         Utils.UpdateSlotsUI(player, inventorySlotPrefab, content, canvas, inventoryInformations, defaultIcon); // on update l'UI
-    }
+    } // OnInventoryChanged()
 }

@@ -8,6 +8,7 @@ public class Collectable : MonoBehaviour
     public ItemData item;
     private float radius = 0.1f;
 
+    // appelé avant la première frame
     private void Start()
     {
         UnityEngine.Vector2 vec = new UnityEngine.Vector2(transform.position.x, transform.position.y);
@@ -23,8 +24,9 @@ public class Collectable : MonoBehaviour
             Destroy(gameObject);
         }
         gameObject.GetComponent<SpriteRenderer>().sprite = item.imageMap;
-    }
+    } // Start()
 
+    // lorsque le joueur entre dans la zone du coffre
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Player player = collision.GetComponent<Player>();
@@ -33,11 +35,12 @@ public class Collectable : MonoBehaviour
             player.inventory.Add(this);
             Destroy(gameObject);
         }
-    }
+    } // OnTriggerEnter2D(Collider2D)
 
+    // set l'item
     public void setItem(ItemData i)
     {
         this.item = i;
-    }
+    } // setItem(ItemData)
 }
 

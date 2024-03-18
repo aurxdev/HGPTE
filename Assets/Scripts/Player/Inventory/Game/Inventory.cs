@@ -17,18 +17,20 @@ public class Inventory{
     public delegate void OnInventoryChangedBar();
     public event OnInventoryChangedBar onInventoryChangedBar;
 
+    // constructeur
     public Inventory(int size){
         for (int i = 0; i < size; i++){
             slots.Add(new Slot());
         }
-    }
+    } // Inventory(int)
 
     public Inventory(List<Slot> list){
         for(int i=0; i<list.Count;i++){
             slots.Add(list[i]);
         }
-    }
+    } // Inventory(List<Slot>)
 
+    // retourne le nombre d'items dans l'inventaire
     public int NumberOfItems(){
         int count=0;
         foreach(Slot slot in slots){
@@ -37,16 +39,37 @@ public class Inventory{
             }
         }
         return count;
-    }
+    } // NumberOfItems()
 
-    // to do: refactor this method
-    public void Add(Collectable c){
-        lastItem = c;
+    // ajoute un collectable dans l'inventaire
+    public void Add(Collectable c)
+    {
+        AddItemToInventory(c.item.id, c.item.type, -1, c.item.imageInventory, c.item.name, c.item.description);
+    } // Add(Collectable)
+
+    // ajoute un item dans l'inventaire
+    public void Add(Item item)
+    {
+        AddItemToInventory(item.data.id, item.data.type, -1, item.data.imageInventory, item.data.name, item.data.description);
+    } // Add(Item)
+
+    // ajoute un slot dans l'inventaire
+    public void Add(List<Slot> playerSlots, int index)
+    {
+        AddItemToInventory(playerSlots[index].id, playerSlots[index].type, playerSlots[index].count, playerSlots[index].icon, playerSlots[index].name, playerSlots[index].description);
+    } // Add(List<Slot>, int)
+
+    // ajoute un item dans l'inventaire
+    private void AddItemToInventory(int id, ItemType type, int count, Sprite icon, string name, string description)
+    {
         // on parcours une premiere fois l'inventaire pour trouver un slot si les 2 ont le meme ID
-        foreach(Slot slot in slots){
-            if (slot.id == c.item.id && slot.CanAddItem()){
-                slot.AddItem(c);
-                lastSlot=slot;
+        foreach (Slot slot in slots)
+        {
+            if (slot.id == id && slot.CanAddItem())
+            {
+                if (count == -1)count = ++slot.count;
+                slot.AddItem(id, type, count, icon, name, description);
+                lastSlot = slot;
                 // on declenche l'event
                 onInventoryChanged?.Invoke();
                 onInventoryChangedBar?.Invoke();
@@ -54,66 +77,22 @@ public class Inventory{
             }
         }
         // sinon si on met au prochain slot vide
-        foreach(Slot slot in slots){
-            if (slot.type == ItemType.NONE || slot == null){
-                slot.AddItem(c);
-                lastSlot=slot;
+        foreach (Slot slot in slots)
+        {
+            if (slot.type == ItemType.NONE || slot == null)
+            {
+                if (count == -1)count = ++slot.count;
+                slot.AddItem(id, type, count, icon, name, description);
+                lastSlot = slot;
                 // on declenche l'event
                 onInventoryChanged?.Invoke();
                 onInventoryChangedBar?.Invoke();
                 return;
             }
         }
-        lastItem=null;
-    }
+    } // AddItemToInventory(int, ItemType, int, Sprite, string, string)
 
-    public void Add(Item item){
-        // on parcours une premiere fois l'inventaire pour trouver un slot si les 2 ont le meme ID
-        foreach(Slot slot in slots){
-            if (slot.id == item.data.id && slot.CanAddItem()){
-                slot.AddItem(item);
-                lastSlot=slot;
-                // on declenche l'event
-                onInventoryChanged?.Invoke();
-                onInventoryChangedBar?.Invoke();
-                return;
-            }
-        }
-        // sinon si on met au prochain slot vide
-        foreach(Slot slot in slots){
-            if (slot.type == ItemType.NONE || slot == null){
-                slot.AddItem(item);
-                lastSlot=slot;
-                // on declenche l'event
-                onInventoryChanged?.Invoke();
-                onInventoryChangedBar?.Invoke();
-                return;
-            }
-        }
-    }
-
-    public void Add(List<Slot> playerSlots, int index){
-        // on parcours une premiere fois l'inventaire pour trouver un slot si les 2 ont le meme ID
-        foreach(Slot slot in slots){
-            if (slot.id == playerSlots[index].id && slot.CanAddItem()){
-                slot.AddItem(playerSlots[index].id, playerSlots[index].type, playerSlots[index].count, playerSlots[index].icon, playerSlots[index].name, playerSlots[index].description);
-                // on declenche l'event
-                onInventoryChanged?.Invoke();
-                return;
-            }
-        }
-        // sinon si on met au prochain slot vide
-        foreach(Slot slot in slots){
-            if (slot.type == ItemType.NONE || slot == null){
-                slot.AddItem(playerSlots[index].id, playerSlots[index].type, playerSlots[index].count, playerSlots[index].icon, playerSlots[index].name, playerSlots[index].description);
-                // on declenche l'event
-                onInventoryChanged?.Invoke();
-                return;
-            }
-        }
-    
-    }
-
+    // swap 2 items dans l'inventaire
     public void SwapItems(int index1, int index2)
     {
         if(index2 == -1)
@@ -152,8 +131,9 @@ public class Inventory{
 
         // on déclenche l'event
         onInventoryChanged?.Invoke();
-    }
+    } // SwapItems(int, int)
 
+    // reset un slot
     public void ResetSlot(Slot s){
         s.type=ItemType.NONE;
         s.count=0;
@@ -161,8 +141,9 @@ public class Inventory{
         s.name="";
         s.id=0;
         s.description="";
-    }
+    } // ResetSlot(Slot)
 
+    // remove un item de l'inventaire
     public void Remove(Collectable c){
         foreach(Slot slot in slots){
             if (slot.id == c.item.id){
@@ -174,8 +155,9 @@ public class Inventory{
                 return;
             }
         }
-    }
+    } // Remove(Collectable)
 
+    // remove un item de l'inventaire
     public void Remove(Item item){
         foreach(Slot slot in slots){
             if (slot.id == item.data.id){
@@ -185,9 +167,9 @@ public class Inventory{
                 return;
             }
         }
-    }
+    } // Remove(Item)
 
-    // inventaire qui contient un item
+    // contient un item
     public bool Contains(int id, int nb){
         foreach(Slot slot in slots){
             if (slot.id == id && slot.count >= nb){
@@ -195,8 +177,9 @@ public class Inventory{
             }
         }
         return false;
-    }
+    } // Contains(int, int)
 
+    // craft un item
     public bool Craft(int id1, int nb1, int id2, int nb2, ItemData item){
         if (Contains(id1, nb1) && Contains(id2,nb2)){
             RemoveWithID(id1, nb1);
@@ -205,8 +188,9 @@ public class Inventory{
             return true;
         }
         return false;
-    }
+    } // Craft(int, int, int, int, ItemData)
 
+    // remove un item de l'inventaire avec un ID
     public void RemoveWithID(int id, int nb){
         foreach(Slot slot in slots){
             if (slot.id == id && slot.count == nb){
@@ -223,16 +207,17 @@ public class Inventory{
 
             }
         }
-    }
+    } // RemoveWithID(int, int)
 
-    // remove avec la place dans l'inventaire
+    // remove
     public void Remove(int index){
         ResetSlot(slots[index]);
 
         // on declenche l'event
         onInventoryChanged?.Invoke();
-    }
+    } // Remove(int)
 
+    // remove tout
     public void RemoveAll(){
         for(int i=0;i<slots.Count;i++){
             Remove(i);
@@ -240,6 +225,6 @@ public class Inventory{
         
         // on declenche l'event
         onInventoryChanged?.Invoke();
-    }
+    } // RemoveAll()
 
 }
