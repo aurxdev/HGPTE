@@ -116,7 +116,6 @@ public class Inventory{
 
     public void SwapItems(int index1, int index2)
     {
-
         if(index2 == -1)
         {
             Slot tmp = new Slot(slots[index1].id, slots[index1].type, slots[index1].count, slots[index1].maxItems, slots[index1].icon, slots[index1].name, slots[index1].description);
@@ -170,6 +169,17 @@ public class Inventory{
                 ResetSlot(slot);
 
                 lastSlot=slot;
+                // on declenche l'event
+                onInventoryChanged?.Invoke();
+                return;
+            }
+        }
+    }
+
+    public void Remove(Item item){
+        foreach(Slot slot in slots){
+            if (slot.id == item.data.id){
+                ResetSlot(slot);
                 // on declenche l'event
                 onInventoryChanged?.Invoke();
                 return;

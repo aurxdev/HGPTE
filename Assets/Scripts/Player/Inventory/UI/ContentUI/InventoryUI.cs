@@ -43,9 +43,9 @@ public class InventoryUI : MonoBehaviour
     public void showUI(){
         inventoryPanel.SetActive(!inventoryPanel.activeSelf); // on active ou desactive
         if(inventoryPanel.activeSelf) {
-            inventoryPanel.transform.LeanMoveLocalX(500, 0.3f).setEaseOutCubic(); // si on ouvre on slide
+            // inventoryPanel.transform.LeanMoveLocalX(500, 0.3f).setEaseOutCubic(); // si on ouvre on slide
         } else {
-            inventoryPanel.transform.LeanMoveLocalX(inventoryPanel.transform.localPosition.x + 500, 0.1f).setEaseOutCubic(); // si on ferme on slide
+            // inventoryPanel.transform.LeanMoveLocalX(inventoryPanel.transform.localPosition.x + 500, 0.1f).setEaseOutCubic(); // si on ferme on slide
         }
         Utils.UpdateSlotsUI(player, inventorySlotPrefab, content, canvas, inventoryInformations, defaultIcon); // on update l'UI   
     }
