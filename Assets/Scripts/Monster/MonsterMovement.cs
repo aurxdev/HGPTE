@@ -42,27 +42,36 @@ public class MonsterMovement : MonoBehaviour
         animator.SetBool("isMoving", true);
         isMoving = true;
         lastMovementTime = randomlyMoveTime* (float) 1.5;
+        Rigidbody2D rb = transform.parent.gameObject.GetComponent<Rigidbody2D>();
+
+        
         switch (Random.Range(0, 4))
         {
             case 0:
-                randomlyVector.x = Random.Range(10, 20);
-                randomlyVector.y = 0;
+                rb.velocity = new Vector2(1, 0);
+                animator.SetFloat("horizontal", 1);
+                animator.SetFloat("vertical", 0);
                 break;
             case 1:
-                randomlyVector.x = -Random.Range(10, 20);
-                randomlyVector.y = 0;
+                rb.velocity = new Vector2(-1, 0);
+                animator.SetFloat("horizontal", -1);
+                animator.SetFloat("vertical", 0);
                 break;
             case 2:
-                randomlyVector.x = 0;
-                randomlyVector.y = Random.Range(10, 20);
+                rb.velocity = new Vector2(0, 1);
+                animator.SetFloat("horizontal", 0);
+                animator.SetFloat("vertical", 1);
                 break;
             case 3:
-                randomlyVector.x = 0;
-                randomlyVector.y = -Random.Range(10, 20);
+                rb.velocity = new Vector2(0, -1);
+                animator.SetFloat("horizontal", 0);
+                animator.SetFloat("vertical", 1);
+                transform.parent.gameObject.GetComponent<SpriteRenderer>().flipX = true;
                 break;
         }
         yield return new WaitForSeconds(randomlyMoveTime);
         isMoving = false;
+        transform.parent.gameObject.GetComponent<SpriteRenderer>().flipX = false;
     }
 
 
@@ -131,9 +140,8 @@ public class MonsterMovement : MonoBehaviour
         if (lastMovementTime > 0) {
             lastMovementTime -= Time.deltaTime;
             if (lastMovementTime <= 0) {
-                lastMovementTime = 0;
-                randomlyVector.x = 0;
-                randomlyVector.y = 0;
+                Rigidbody2D rb = transform.parent.gameObject.GetComponent<Rigidbody2D>();
+                rb.velocity = new Vector2(0, 0);
             }
         }
 
@@ -168,8 +176,6 @@ public class MonsterMovement : MonoBehaviour
                     if (lastMovementTime <= 0) {
                         StartCoroutine(RandomlyMove());
                     }
-                } else {
-                    Move(randomlyVector);
                 }
             }
         }
