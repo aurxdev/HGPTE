@@ -154,6 +154,12 @@ public class MonsterMovement : MonoBehaviour
                 {
                     direction.x = 0;
                 }
+                if (direction.x != 0) {
+                    direction.x = (direction.x > 0) ? 1 : -1;
+                }
+                if (direction.y != 0) {
+                    direction.y = (direction.y > 0) ? 1 : -1;
+                }
                 Move(direction);
             } else {
                 if (!isMoving)
